@@ -961,6 +961,92 @@ form label + label {
   background: #f8fbfc;
 }
 
+.brief-page {
+  background:
+    linear-gradient(135deg, rgba(15, 118, 110, 0.1), rgba(245, 158, 11, 0.08)),
+    var(--bg);
+}
+
+.brief-hero {
+  padding: 58px 0 32px;
+  text-align: center;
+}
+
+.brief-hero-copy {
+  display: grid;
+  justify-items: center;
+}
+
+.brief-hero h1 {
+  max-width: 760px;
+}
+
+.brief-hero p:not(.eyebrow) {
+  max-width: 680px;
+}
+
+.brief-section {
+  display: grid;
+  justify-items: center;
+  padding-top: 34px;
+}
+
+.brief-card {
+  width: min(100%, 860px);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: var(--shadow);
+}
+
+.brief-card-head {
+  padding: 28px 30px 0;
+  text-align: center;
+}
+
+.brief-card-head h2 {
+  margin: 14px 0 6px;
+  font-size: 1.7rem;
+  line-height: 1.1;
+}
+
+.brief-card-head .muted {
+  margin: 0 auto;
+  max-width: 540px;
+}
+
+.brief-form {
+  max-width: none;
+  padding: 28px 30px 30px;
+  border: 0;
+  background: transparent;
+}
+
+.brief-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.brief-full {
+  margin-top: 16px;
+}
+
+.brief-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.brief-message {
+  min-height: 28px;
+  margin: 0;
+  padding: 0 30px 26px;
+  text-align: center;
+}
+
 @media (max-width: 900px) {
   .hero-grid,
   .about-hero-grid,
@@ -1082,5 +1168,27 @@ form label + label {
 
   .admin-panel-head {
     padding: 18px;
+  }
+
+  .brief-hero {
+    padding: 42px 0 24px;
+  }
+
+  .brief-card-head,
+  .brief-form {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .brief-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .brief-actions {
+    flex-direction: column-reverse;
+  }
+
+  .brief-actions .btn {
+    width: 100%;
   }
 }

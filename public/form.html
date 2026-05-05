@@ -6,7 +6,7 @@
   <title>Project Details | A² POWER</title>
   <link rel="stylesheet" href="/css/styles.css" />
 </head>
-<body>
+<body class="brief-page">
   <header class="site-header">
     <div class="container header-inner">
       <a class="brand" href="/" aria-label="A squared POWER home">
@@ -23,26 +23,38 @@
   </header>
 
   <main>
-    <section class="page-hero">
-      <div class="container narrow">
+    <section class="page-hero brief-hero">
+      <div class="container narrow brief-hero-copy">
         <p class="eyebrow">Project brief</p>
         <h1>Tell us what your selected website needs.</h1>
         <p>Share your business details before payment so your package, payment details, and brief reach the admin together.</p>
       </div>
     </section>
 
-    <section class="section container">
-      <form id="client-form">
-        <label>Name <input id="name" name="name" required /></label>
-        <label>Business Name <input id="businessName" name="businessName" /></label>
-        <label>Phone <input id="phone" name="phone" required /></label>
-        <label>Website Type <input id="websiteType" name="websiteType" /></label>
-        <label>Number of pages <input id="pages" name="pages" type="number" /></label>
-        <label>Reference Website <input id="referenceWebsite" name="referenceWebsite" /></label>
-        <label>Extra requirements <textarea id="extraRequirements" name="extraRequirements"></textarea></label>
-        <button type="submit" class="btn primary">Continue to Payment</button>
-      </form>
-      <div id="msg" class="muted"></div>
+    <section class="section container brief-section">
+      <div class="brief-card">
+        <div class="brief-card-head">
+          <span class="admin-pill">Selected Package</span>
+          <h2>Project details</h2>
+          <p class="muted">A few details help us prepare the right structure before checkout.</p>
+        </div>
+        <form id="client-form" class="brief-form">
+          <div class="brief-grid">
+            <label>Name <input id="name" name="name" required placeholder="Your full name" /></label>
+            <label>Business Name <input id="businessName" name="businessName" placeholder="Company or shop name" /></label>
+            <label>Phone <input id="phone" name="phone" required placeholder="WhatsApp or mobile number" /></label>
+            <label>Website Type <input id="websiteType" name="websiteType" placeholder="Business, ecommerce, custom" /></label>
+            <label>Number of pages <input id="pages" name="pages" type="number" /></label>
+            <label>Reference Website <input id="referenceWebsite" name="referenceWebsite" placeholder="https://example.com" /></label>
+          </div>
+          <label class="brief-full">Extra requirements <textarea id="extraRequirements" name="extraRequirements" placeholder="Tell us about sections, features, content, colors, or any special work."></textarea></label>
+          <div class="brief-actions">
+            <a class="btn ghost" href="/pricing.html">Back to Pricing</a>
+            <button type="submit" class="btn primary">Continue to Payment</button>
+          </div>
+        </form>
+        <div id="msg" class="muted brief-message"></div>
+      </div>
     </section>
   </main>
 
