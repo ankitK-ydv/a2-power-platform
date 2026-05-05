@@ -40,10 +40,18 @@ function adminAuthMiddleware(req, res, next){
   const cookies = parseCookies(req);
   const token = cookies['a2_admin'];
   if(!token){
+    if (req.path.startsWith('/api/')) {
+      return res.status(401).json({ success: false, message: 'Admin login required' });
+    }
     return res.status(401).sendFile(path.join(__dirname, 'public', 'admin-login.html'));
   }
   const expected = makeAdminSignature();
-  if(token !== expected) return res.status(401).sendFile(path.join(__dirname, 'public', 'admin-login.html'));
+  if(token !== expected) {
+    if (req.path.startsWith('/api/')) {
+      return res.status(401).json({ success: false, message: 'Admin login required' });
+    }
+    return res.status(401).sendFile(path.join(__dirname, 'public', 'admin-login.html'));
+  }
   next();
 }
 
@@ -54,6 +62,7 @@ mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
   .catch(err => console.error('MongoDB connection error:', err));
 
 app.use('/api/payment', paymentRoutes);
+app.use('/api/client/orders', adminAuthMiddleware);
 app.use('/api/client', clientRoutes);
 
 // Admin login endpoints
