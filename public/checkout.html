@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Checkout | A² POWER</title>
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="/" aria-label="A squared POWER home">
+        <span class="brand-mark">A²</span>
+        <span class="brand-copy">POWER</span>
+      </a>
+      <nav class="site-nav" aria-label="Primary navigation">
+        <a href="/">Home</a>
+        <a href="/about.html">About</a>
+        <a href="/pricing.html">Pricing</a>
+        <a href="/portfolio.html">Portfolio</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-hero">
+      <div class="container narrow">
+        <p class="eyebrow">Secure checkout</p>
+        <h1>Confirm your website order.</h1>
+        <p>Review the selected package and continue with advance or full payment.</p>
+      </div>
+    </section>
+
+    <section class="section container">
+      <div class="summary checkout-card">
+        <h2>Order Summary</h2>
+        <div id="summary"></div>
+        <div class="actions">
+          <button id="pay-advance" class="btn primary">Pay 40% Advance</button>
+          <button id="pay-full" class="btn ghost">Pay Full Amount</button>
+        </div>
+        <div id="message" class="muted"></div>
+      </div>
+    </section>
+  </main>
+
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+  <script src="/js/checkout.js"></script>
+</body>
+</html>

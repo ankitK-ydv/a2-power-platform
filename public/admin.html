@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Admin - A² POWER Orders</title>
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container"><h1 class="brand">A² POWER - Admin</h1></div>
+  </header>
+  <main class="container">
+    <h2>Orders</h2>
+    <div id="loading" class="muted">Loading orders…</div>
+    <div id="error" class="muted" style="color:salmon"></div>
+    <div style="overflow:auto">
+      <table id="orders-table" style="width:100%;border-collapse:collapse;margin-top:12px;display:none">
+        <thead style="text-align:left">
+          <tr>
+            <th>Order ID</th>
+            <th>Name</th>
+            <th>Business</th>
+            <th>Phone</th>
+            <th>Package</th>
+            <th>Addons</th>
+            <th>Reference</th>
+            <th>Brief</th>
+            <th>Total</th>
+            <th>Advance</th>
+            <th>Remaining</th>
+            <th>Payment</th>
+            <th>Project</th>
+            <th>Created</th>
+          </tr>
+        </thead>
+        <tbody id="orders-body"></tbody>
+      </table>
+    </div>
+  </main>
+  <script src="/js/admin.js"></script>
+</body>
+</html>
