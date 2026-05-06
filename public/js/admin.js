@@ -55,9 +55,11 @@ document.addEventListener('DOMContentLoaded', async () => {
       tr.appendChild(td(c.referenceWebsite || '-'));
       tr.appendChild(td(c.extraRequirements || '-'));
       tr.appendChild(td(c.totalPrice != null ? 'Rs. ' + c.totalPrice : '-'));
+      tr.appendChild(td(c.paidAmount != null ? 'Rs. ' + c.paidAmount : '-'));
       tr.appendChild(td(c.advancePaid != null ? 'Rs. ' + c.advancePaid : '-'));
       tr.appendChild(td(c.remainingAmount != null ? 'Rs. ' + c.remainingAmount : '-'));
       tr.appendChild(td(c.paymentStatus));
+      tr.appendChild(td(c.razorpayPaymentId || '-'));
       tr.appendChild(td(c.projectStatus));
       tr.appendChild(td(new Date(c.createdAt).toLocaleString()));
       tbody.appendChild(tr);

@@ -16,8 +16,11 @@ const ClientSchema = new mongoose.Schema({
   extraRequirements: { type: String, default: '' },
   extraWorkAmount: { type: Number, default: 0 },
   totalPrice: Number,
+  paidAmount: { type: Number, default: 0 },
   advancePaid: { type: Number, default: 0 },
   remainingAmount: { type: Number, default: 0 },
+  paymentType: { type: String, default: '' },
+  paidAt: Date,
   paymentStatus: { type: String, default: 'Pending' },
   projectStatus: { type: String, default: 'Not Started' },
   createdAt: { type: Date, default: Date.now }

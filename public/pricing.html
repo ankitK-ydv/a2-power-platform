@@ -58,6 +58,17 @@
           </label>
         </div>
 
+        <button id="show-manual-payment" class="btn ghost manual-payment-trigger" type="button">Manual Payment</button>
+        <div id="manual-payment-panel" class="manual-payment-panel" hidden>
+          <label class="check-card manual-payment-card">
+            <input id="manual-payment-toggle" type="checkbox" />
+            <span><strong>Pay custom amount</strong><small class="field-help">Enter any amount you want to collect from the client.</small></span>
+          </label>
+          <label class="field-label manual-amount-field">Manual amount
+            <input id="manual-amount-input" type="number" min="1" step="1" placeholder="Enter amount" />
+          </label>
+        </div>
+
         <div class="form-block">
           <h2>Options</h2>
           <label class="field-label">Number of pages
@@ -86,8 +97,8 @@
         <h2>Price Summary</h2>
         <div class="summary-row"><span>Extra work</span><strong id="extra-work-total">&#8377;0</strong></div>
         <div class="summary-row"><span>Total</span><strong id="total">&#8377;0</strong></div>
-        <div class="summary-row"><span>Advance (40%)</span><strong id="advance">&#8377;0</strong></div>
-        <div class="summary-row"><span>Remaining</span><strong id="remaining">&#8377;0</strong></div>
+        <div class="summary-row"><span id="advance-label">Advance (40%)</span><strong id="advance">&#8377;0</strong></div>
+        <div class="summary-row"><span id="remaining-label">Remaining</span><strong id="remaining">&#8377;0</strong></div>
         <p class="payment-note">For starting your work, please pay the advance first.</p>
         <div class="actions">
           <button id="pay-advance" class="btn primary">Brief + Pay 40% Advance</button>

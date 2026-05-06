@@ -40,9 +40,22 @@
           <button id="pay-full" class="btn ghost">Pay Full Amount</button>
         </div>
         <div id="message" class="muted"></div>
+        <div id="receipt-panel" class="receipt-panel" hidden></div>
       </div>
     </section>
   </main>
+
+  <div id="payment-loader" class="payment-loader" hidden aria-live="polite" aria-busy="true">
+    <div class="payment-loader-box">
+      <div class="a2-loader-orbit" aria-hidden="true">
+        <span class="a2-loader-logo">A2</span>
+        <span class="a2-loader-dot dot-one">A</span>
+        <span class="a2-loader-dot dot-two">2</span>
+      </div>
+      <strong>Processing payment</strong>
+      <span>Opening secure Razorpay checkout...</span>
+    </div>
+  </div>
 
   <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
   <script src="/js/checkout.js"></script>
