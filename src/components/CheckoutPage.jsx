@@ -32,6 +32,9 @@ export default function CheckoutPage() {
     return state.manualPayment ? state.total : state.advance;
   };
 
+  const getReceiptPackageName = (receiptData) =>
+    receiptData.websiteType || getPackageName(receiptData.packageType);
+
   const handlePayment = async (payType) => {
     if (!state || !brief.name || !brief.phone) {
       setMessage('Please fill in all required fields');
@@ -44,7 +47,7 @@ export default function CheckoutPage() {
 
       const payload = {
         totalPrice: state.total,
-        packageType: state.packageType,
+        packageType: state.manualPayment ? 'manual' : state.packageType,
         pages: state.pages,
         addons: state.addons || [],
         extraWorkAmount: state.extraWorkAmount || 0,
@@ -185,7 +188,7 @@ export default function CheckoutPage() {
                 <div>
                   <p className="text-sm text-gray-600 mb-1">Package</p>
                   <p className="font-semibold text-lg">
-                    {getPackageName(receipt.packageType)}
+                    {getReceiptPackageName(receipt)}
                   </p>
                 </div>
                 <div>
