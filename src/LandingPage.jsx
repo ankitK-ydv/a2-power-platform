@@ -81,6 +81,18 @@ const HeroSection = () => {
                 </motion.span>
               </div>
 
+       
+
+<div className="inline-block ml-3">
+  <motion.span
+    initial={{ opacity: 0, x: -20 }}
+    animate={{ opacity: 1, x: 0 }}
+    className="px-4 py-2 bg-emerald-100 text-emerald-700 rounded-full text-sm font-semibold"
+  >
+    ✅ MSME Registered Business
+  </motion.span>
+</div>
+
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-slate-900 leading-tight">
                 Turn Local Visitors Into{' '}
                 <span className="bg-gradient-to-r from-teal-500 to-blue-600 bg-clip-text text-transparent">
@@ -924,6 +936,10 @@ const Footer = () => {
             <p className="text-slate-400 text-sm">
               Websites for local businesses that grow your sales.
             </p>
+
+            <p className="mt-2 text-sm text-teal-400 font-medium">
+  ✅ MSME UDYAM: UDYAM-PB-12-0297977
+</p>
           </div>
 
           <div>
@@ -973,7 +989,7 @@ const Footer = () => {
         </div>
 
         <div className="border-t border-slate-800 pt-8 text-center text-slate-400 text-sm">
-          <p>© 2024 A² POWER. All rights reserved. | Privacy Policy | Terms of Service</p>
+          <p>© 2026 A² POWER. All rights reserved. | Privacy Policy | Terms of Service</p>
         </div>
       </div>
     </footer>
