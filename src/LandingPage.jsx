@@ -959,7 +959,14 @@ const Footer = () => {
     📱 WhatsApp
   </a>
 </li>
-              <li><a href="mailto: asquare.client@gmail.com" className="hover:text-teal-400 transition-colors">✉️ Email</a></li>
+              <li>
+  <a
+    href="mailto:asquare.client@gmail.com"
+    className="hover:text-teal-400 transition-colors"
+  >
+    ✉️ Email
+  </a>
+</li>
               <li><a href="#" className="hover:text-teal-400 transition-colors">🕐 24/7 Support</a></li>
             </ul>
           </div>
