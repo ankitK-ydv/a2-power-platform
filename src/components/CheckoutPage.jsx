@@ -47,8 +47,8 @@ export default function CheckoutPage() {
         pages: state.pages,
         addons: state.addons || [],
         extraWorkAmount: state.extraWorkAmount || 0,
-        paymentType: state.manualPayment ? 'full' : payType,
-        ...brief,
+        payType: state.manualPayment ? 'full' : payType,
+        clientBrief: brief,
       };
 
       // Call create-order endpoint
