@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Check } from 'lucide-react';
+import { Info, X } from 'lucide-react';
+import { PACKAGE_DETAILS } from '../data/packageDetails';
 
 const PACKAGE_PRICES = {
   landing: 3999,
@@ -27,6 +28,7 @@ export default function PricingPage() {
   const [extraWorkAmount, setExtraWorkAmount] = useState(0);
   const [manualPayment, setManualPayment] = useState(false);
   const [manualAmount, setManualAmount] = useState(0);
+  const [showPackageGuide, setShowPackageGuide] = useState(false);
 
   const calculatePrice = () => {
     if (manualPayment) {
@@ -118,12 +120,22 @@ export default function PricingPage() {
           >
             {/* Packages */}
             <div className="bg-white rounded-lg shadow-lg p-8 mb-8">
-              <h2 className="text-2xl font-bold mb-6">Packages</h2>
+              <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between mb-6">
+                <h2 className="text-2xl font-bold">Packages</h2>
+                <button
+                  type="button"
+                  onClick={() => setShowPackageGuide(true)}
+                  className="inline-flex items-center justify-center gap-2 rounded-lg border border-teal-600 px-4 py-2 text-sm font-semibold text-teal-700 transition hover:bg-teal-50"
+                >
+                  <Info size={16} />
+                  Compare Packages
+                </button>
+              </div>
               <div className="space-y-4">
                 {Object.entries(PACKAGE_PRICES).map(([key, price]) => (
                   <label
                     key={key}
-                    className={`flex items-center p-4 border-2 rounded-lg cursor-pointer transition ${
+                    className={`flex items-start p-4 border-2 rounded-lg cursor-pointer transition ${
                       selectedPackage === key
                         ? 'border-teal-500 bg-teal-50'
                         : 'border-gray-200 hover:border-teal-300'
@@ -135,24 +147,14 @@ export default function PricingPage() {
                       value={key}
                       checked={selectedPackage === key}
                       onChange={(e) => setSelectedPackage(e.target.value)}
-                      className="w-4 h-4"
+                      className="w-4 h-4 mt-1"
                     />
                     <div className="flex-1 ml-4">
-                      <div className="font-semibold capitalize">
-                        {key === 'wordpress' && 'WordPress Website'}
-                        {key === 'landing' && 'Landing Page'}
-                        {key === 'coding' && 'Coding Website'}
-                        {key === 'custom' && 'Custom Website'}
+                      <div className="font-semibold">
+                        {PACKAGE_DETAILS[key].name}
                       </div>
                       <div className="text-sm text-gray-600">
-                        {key === 'landing' &&
-                          'Single-page offer, service, or lead page'}
-                        {key === 'wordpress' &&
-                          'Fast, editable business website. Perfect for most businesses.'}
-                        {key === 'coding' &&
-                          'Custom React/Next.js website for advanced features'}
-                        {key === 'custom' &&
-                          'Fully custom design and functionality'}
+                        {PACKAGE_DETAILS[key].shortDescription}
                       </div>
                     </div>
                     <div className="font-bold text-lg text-teal-600">
@@ -347,6 +349,83 @@ export default function PricingPage() {
           </motion.div>
         </div>
       </div>
+
+      {showPackageGuide && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 px-4 py-6">
+          <motion.div
+            initial={{ opacity: 0, y: 20, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            className="max-h-[90vh] w-full max-w-5xl overflow-y-auto rounded-lg bg-white shadow-2xl"
+          >
+            <div className="sticky top-0 z-10 flex items-center justify-between border-b bg-white px-5 py-4">
+              <div>
+                <h2 className="text-xl font-bold">
+                  Which Package Should I Choose?
+                </h2>
+                <p className="text-sm text-gray-600">
+                  Compare all 4 options and select the right website type.
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={() => setShowPackageGuide(false)}
+                aria-label="Close package comparison"
+                className="rounded-lg p-2 text-gray-500 transition hover:bg-gray-100 hover:text-gray-900"
+              >
+                <X size={20} />
+              </button>
+            </div>
+
+            <div className="grid gap-4 p-5 md:grid-cols-2">
+              {Object.entries(PACKAGE_DETAILS).map(([key, detail]) => (
+                <div
+                  key={key}
+                  className={`rounded-lg border-2 p-5 ${
+                    selectedPackage === key
+                      ? 'border-teal-500 bg-teal-50'
+                      : 'border-gray-200'
+                  }`}
+                >
+                  <div className="mb-3 flex items-start justify-between gap-4">
+                    <div>
+                      <h3 className="text-lg font-bold">{detail.name}</h3>
+                      <p className="mt-1 text-sm font-semibold text-teal-700">
+                        {detail.bestChoice}
+                      </p>
+                    </div>
+                    <span className="whitespace-nowrap text-lg font-bold text-teal-700">
+                      {'\u20b9'}{PACKAGE_PRICES[key].toLocaleString('en-IN')}
+                    </span>
+                  </div>
+                  <p className="text-sm leading-relaxed text-gray-700">
+                    {detail.description}
+                  </p>
+                  <div className="mt-4">
+                    <p className="mb-2 text-sm font-semibold text-gray-900">
+                      Ideal For:
+                    </p>
+                    <ul className="space-y-1 text-sm text-gray-700">
+                      {detail.idealFor.map((item) => (
+                        <li key={item}>- {item}</li>
+                      ))}
+                    </ul>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setSelectedPackage(key);
+                      setShowPackageGuide(false);
+                    }}
+                    className="mt-5 w-full rounded-lg bg-gradient-to-r from-teal-600 to-blue-600 px-4 py-2 text-sm font-bold text-white transition hover:shadow-lg"
+                  >
+                    Choose {detail.name}
+                  </button>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+        </div>
+      )}
     </div>
   );
 }

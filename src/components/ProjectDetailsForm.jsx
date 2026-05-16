@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowLeft, Loader } from 'lucide-react';
+import { getPackageName } from '../data/packageDetails';
 
 export default function ProjectDetailsForm() {
   const [selection, setSelection] = useState(null);
@@ -26,7 +27,7 @@ export default function ProjectDetailsForm() {
     setFormData((prev) => ({
       ...prev,
       pages: stored.pages || 1,
-      websiteType: stored.packageType || '',
+      websiteType: getPackageName(stored.packageType),
     }));
   }, []);
 
@@ -87,7 +88,9 @@ export default function ProjectDetailsForm() {
             <span className="inline-block bg-teal-100 text-teal-700 px-3 py-1 rounded-full text-sm font-semibold mb-4">
               Selected Package
             </span>
-            <h2 className="text-2xl font-bold capitalize">{selection.packageType}</h2>
+            <h2 className="text-2xl font-bold">
+              {getPackageName(selection.packageType)}
+            </h2>
             <p className="text-gray-600 mt-2">
               {selection.pages} page{selection.pages !== 1 ? 's' : ''} •{' '}
               {selection.addons?.length > 0

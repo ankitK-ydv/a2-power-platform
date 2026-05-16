@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Loader, Download, ArrowLeft } from 'lucide-react';
+import { getPackageName } from '../data/packageDetails';
 
 export default function CheckoutPage() {
   const [state, setState] = useState(null);
@@ -80,7 +81,7 @@ export default function CheckoutPage() {
           amount: orderData.order.amount,
           currency: 'INR',
           name: 'A² POWER',
-          description: `${state.packageType} Website Package`,
+          description: `${getPackageName(state.packageType)} Package`,
           order_id: orderData.order.id,
           handler: async (response) => {
             try {
@@ -183,8 +184,8 @@ export default function CheckoutPage() {
                 </div>
                 <div>
                   <p className="text-sm text-gray-600 mb-1">Package</p>
-                  <p className="font-semibold text-lg capitalize">
-                    {receipt.packageType}
+                  <p className="font-semibold text-lg">
+                    {getPackageName(receipt.packageType)}
                   </p>
                 </div>
                 <div>
@@ -298,8 +299,8 @@ export default function CheckoutPage() {
                 {/* Summary will be populated */}
                 <div className="flex justify-between">
                   <span className="text-gray-600">Package</span>
-                  <span className="font-semibold capitalize">
-                    {state.packageType}
+                  <span className="font-semibold">
+                    {getPackageName(state.packageType)}
                   </span>
                 </div>
                 <div className="flex justify-between">
