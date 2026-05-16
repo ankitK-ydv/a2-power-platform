@@ -76,12 +76,12 @@ export default function CheckoutPage() {
 
       script.onload = () => {
         const razorpayOptions = {
-          key: orderData.razorpayKeyId,
-          amount: orderData.amount,
+          key: orderData.key,
+          amount: orderData.order.amount,
           currency: 'INR',
           name: 'A² POWER',
           description: `${state.packageType} Website Package`,
-          order_id: orderData.orderId,
+          order_id: orderData.order.id,
           handler: async (response) => {
             try {
               setMessage('Verifying payment...');
@@ -90,9 +90,9 @@ export default function CheckoutPage() {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                  razorpayOrderId: response.razorpay_order_id,
-                  razorpayPaymentId: response.razorpay_payment_id,
-                  razorpaySignature: response.razorpay_signature,
+                  razorpay_order_id: response.razorpay_order_id,
+                  razorpay_payment_id: response.razorpay_payment_id,
+                  razorpay_signature: response.razorpay_signature,
                   orderId: orderData.orderId,
                 }),
               });
