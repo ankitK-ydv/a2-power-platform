@@ -9,7 +9,7 @@ import {
   ArrowRight,
   ExternalLink,
   LayoutDashboard,
-  Dumbell,
+  Dumbbell,
   Search,
   Plane,
 } from 'lucide-react';
@@ -25,7 +25,7 @@ const projectSections = [
       'Trainer showcase',
       'Mobile-friendly gym UI',
     ],
-    icon: Dumbell,
+    icon: Dumbbell,
     accent: 'from-teal-500 to-emerald-500',
     image: live1Img,
     link: 'https://growyourgym-demo.netlify.app/',
