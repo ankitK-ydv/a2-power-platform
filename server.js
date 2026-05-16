@@ -88,8 +88,8 @@ app.get('/admin.html', adminAuthMiddleware, (req, res) => {
 // Serve static files (after admin guard registration)
 app.use(express.static(path.join(__dirname, 'public')));
 
-// fallback to index
-app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'public', 'index.html')));
+// Fallback to index.html for React Router (must be last route)
+app.get('*', (req, res) => res.sendFile(path.join(__dirname, 'public', 'index.html')));
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
