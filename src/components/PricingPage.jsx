@@ -1,6 +1,7 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Info, X } from 'lucide-react';
+import { ArrowLeft, Info, X } from 'lucide-react';
 import { PACKAGE_DETAILS } from '../data/packageDetails';
 
 const PACKAGE_PRICES = {
@@ -111,6 +112,13 @@ export default function PricingPage() {
 
       {/* Main Content */}
       <div className="container mx-auto px-4 max-w-7xl py-12">
+        <Link
+          to="/"
+          className="mb-8 inline-flex items-center gap-2 text-sm font-semibold text-slate-600 transition hover:text-teal-700"
+        >
+          <ArrowLeft className="h-4 w-4" />
+          Back to Home
+        </Link>
         <div className="grid lg:grid-cols-3 gap-8">
           {/* Left Panel - Options */}
           <motion.div
@@ -130,6 +138,12 @@ export default function PricingPage() {
                   <Info size={16} />
                   Compare Packages
                 </button>
+              </div>
+              <div className="mb-6 rounded-lg border border-amber-200 bg-amber-50 p-4 text-sm leading-relaxed text-amber-900">
+                <span className="font-bold">Note:</span> Hosting and domain are
+                not included in these packages. Hosting + domain will be charged
+                {' \u20b9'}3,999 extra. If the client wants a custom/premium
+                domain and its market price is higher, the final price may vary.
               </div>
               <div className="space-y-4">
                 {Object.entries(PACKAGE_PRICES).map(([key, price]) => (

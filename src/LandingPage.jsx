@@ -110,21 +110,29 @@ const HeroSection = () => {
 
               {/* CTA Buttons */}
               <div className="flex flex-col sm:flex-row gap-4 pt-4">
-                <motion.button
+                <motion.div
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="px-8 py-4 bg-gradient-to-r from-teal-500 to-teal-600 text-white font-bold rounded-lg hover:shadow-lg transition-shadow"
                 >
-                  Get My Website Now
-                  <ArrowRight className="inline-block ml-2 w-5 h-5" />
-                </motion.button>
-                <motion.button
+                  <Link
+                    to="/pricing"
+                    className="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-teal-500 to-teal-600 text-white font-bold rounded-lg hover:shadow-lg transition-shadow"
+                  >
+                    Get My Website Now
+                    <ArrowRight className="inline-block ml-2 w-5 h-5" />
+                  </Link>
+                </motion.div>
+                <motion.div
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="px-8 py-4 border-2 border-slate-300 text-slate-700 font-bold rounded-lg hover:bg-slate-50 transition-colors"
                 >
-                  See Live Demo
-                </motion.button>
+                  <Link
+                    to="/live-demo"
+                    className="inline-flex items-center justify-center px-8 py-4 border-2 border-slate-300 text-slate-700 font-bold rounded-lg hover:bg-slate-50 transition-colors"
+                  >
+                    See Live Demo
+                  </Link>
+                </motion.div>
               </div>
             </div>
           </FadeInUp>

@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Loader, Download, ArrowLeft } from 'lucide-react';
 import { getPackageName } from '../data/packageDetails';
@@ -144,6 +145,13 @@ export default function CheckoutPage() {
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 py-12">
         <div className="container mx-auto px-4 max-w-3xl">
+          <Link
+            to="/"
+            className="mb-8 inline-flex items-center gap-2 text-sm font-semibold text-slate-600 transition hover:text-teal-700"
+          >
+            <ArrowLeft className="h-4 w-4" />
+            Back to Home
+          </Link>
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -288,6 +296,13 @@ export default function CheckoutPage() {
 
       {/* Checkout */}
       <div className="container mx-auto px-4 max-w-4xl py-12">
+        <Link
+          to="/"
+          className="mb-8 inline-flex items-center gap-2 text-sm font-semibold text-slate-600 transition hover:text-teal-700"
+        >
+          <ArrowLeft className="h-4 w-4" />
+          Back to Home
+        </Link>
         <div className="grid lg:grid-cols-3 gap-8">
           {/* Left - Details */}
           <motion.div

@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowLeft, Loader } from 'lucide-react';
 import { getPackageName } from '../data/packageDetails';
@@ -79,6 +80,13 @@ export default function ProjectDetailsForm() {
 
       {/* Form */}
       <div className="container mx-auto px-4 max-w-2xl py-12">
+        <Link
+          to="/"
+          className="mb-8 inline-flex items-center gap-2 text-sm font-semibold text-slate-600 transition hover:text-teal-700"
+        >
+          <ArrowLeft className="h-4 w-4" />
+          Back to Home
+        </Link>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
