@@ -938,7 +938,7 @@ const Footer = () => {
             </p>
 
             <p className="mt-2 text-sm text-teal-400 font-medium">
-  ✅ MSME UDYAM: UDYAM-PB-12-0297977
+  ✅ MSME Registered: UDYAM-PB-12-0297977
 </p>
           </div>
 
