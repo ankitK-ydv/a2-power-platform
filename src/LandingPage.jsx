@@ -579,19 +579,19 @@ const TestimonialsSection = () => {
     },
     {
       name: 'Priya Singh',
-      business: 'Salon Owner',
+      business: 'Makhana Shop',
       text: 'Best investment for my business. Bookings increased by 40% and I get WhatsApp messages from customers all day.',
       rating: 5,
     },
     {
-      name: 'Amit Patel',
-      business: 'Restaurant',
+      name: 'Ravi Chaurasia',
+      business: 'Sakshi Light',
       text: 'Website is amazing! I get 20+ orders daily through WhatsApp now. Professional design makes customers trust me.',
       rating: 5,
     },
     {
       name: 'Neha Sharma',
-      business: 'Coaching Center',
+      business: 'Trip Architect',
       text: 'Website brought 30 new students to my coaching. People search online for coaching centers and found me!',
       rating: 5,
     },
