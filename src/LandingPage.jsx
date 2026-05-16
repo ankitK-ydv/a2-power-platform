@@ -534,9 +534,9 @@ const ProcessSection = () => {
 // Stats Section
 const StatsSection = () => {
   const stats = [
-    { label: 'Websites Built', value: 250, suffix: '+' },
-    { label: 'Leads Generated', value: 15000, suffix: '+' },
-    { label: 'Happy Clients', value: 200, suffix: '+' },
+    { label: 'Websites Built', value: 25, suffix: '+' },
+    { label: 'Leads Generated', value: 1500, suffix: '+' },
+    { label: 'Happy Clients', value: 20, suffix: '+' },
     { label: 'Avg. Loading Speed', value: 1.2, suffix: 's' },
   ];
 
@@ -718,7 +718,7 @@ const FAQSection = () => {
     },
     {
       q: 'How long does it take to build my website?',
-      a: 'Usually 3-5 days. We work fast without compromising quality. Your website will be ready to launch quickly.',
+      a: 'Usually 5-10 days. We work fast without compromising quality. Your website will be ready to launch quickly.',
     },
     {
       q: 'What if I don\'t know anything about websites?',
