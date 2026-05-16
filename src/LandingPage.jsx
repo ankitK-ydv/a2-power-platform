@@ -130,7 +130,7 @@ const HeroSection = () => {
                     to="/live-demo"
                     className="inline-flex items-center justify-center px-8 py-4 border-2 border-slate-300 text-slate-700 font-bold rounded-lg hover:bg-slate-50 transition-colors"
                   >
-                    See Live Demo
+                    View Our Recent Work
                   </Link>
                 </motion.div>
               </div>
@@ -949,8 +949,17 @@ const Footer = () => {
           <div>
             <h4 className="font-bold mb-4">Contact</h4>
             <ul className="space-y-2 text-slate-400 text-sm">
-              <li><a href="tel:+918264737529" className="hover:text-teal-400 transition-colors">📱 WhatsApp</a></li>
-              <li><a href="mailto: ankit8288ya@gmail.com" className="hover:text-teal-400 transition-colors">✉️ Email</a></li>
+             <li>
+  <a
+    href="https://wa.me/918264737529"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="hover:text-teal-400 transition-colors"
+  >
+    📱 WhatsApp
+  </a>
+</li>
+              <li><a href="mailto: asquare.client@gmail.com" className="hover:text-teal-400 transition-colors">✉️ Email</a></li>
               <li><a href="#" className="hover:text-teal-400 transition-colors">🕐 24/7 Support</a></li>
             </ul>
           </div>

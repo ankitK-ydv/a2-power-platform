@@ -1,5 +1,9 @@
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import live1Img from "../assets/live1.png";
+import live2Img from "../assets/live2.png";
+import live3Img from "../assets/live3.png";
+import live4Img from "../assets/live4.png";
 import {
   ArrowLeft,
   ArrowRight,
@@ -7,36 +11,73 @@ import {
   LayoutDashboard,
   MessageCircle,
   Search,
+  Plane,
 } from 'lucide-react';
 
 const projectSections = [
   {
-    title: 'Local Business Website',
-    category: 'Service Business',
+    title: 'BEASTFIT Gym Website',
+    category: 'Fitness Brand',
     description:
-      'Showcase a local service website with hero section, service cards, WhatsApp inquiry button, testimonials, and contact form.',
-    highlights: ['Lead-focused landing', 'WhatsApp CTA', 'Mobile-ready layout'],
+      'Modern fitness website designed for gyms and personal trainers with membership plans, trainer showcase, transformation sections, and admin panel integration.',
+    highlights: [
+      'Membership plans',
+      'Trainer showcase',
+      'Mobile-friendly gym UI',
+    ],
     icon: MessageCircle,
     accent: 'from-teal-500 to-emerald-500',
+    image: live1Img,
+    link: 'https://growyourgym-demo.netlify.app/',
   },
+
   {
-    title: 'Restaurant / Shop Website',
-    category: 'Local Brand',
+    title: 'ZENPUFF Makhana Store',
+    category: 'Ecommerce Brand',
     description:
-      'Add a restaurant, cafe, salon, gym, or shop project here with menu, gallery, offers, location, and booking/contact actions.',
-    highlights: ['Menu or catalog', 'Gallery section', 'Google map/contact'],
+      'Professional ecommerce website for a healthy snack brand with product catalog, shopping experience, offers, and customer-friendly product showcase.',
+    highlights: [
+      'Product showcase',
+      'Modern ecommerce UI',
+      'Payment Integration',
+    ],
     icon: Search,
     accent: 'from-blue-500 to-cyan-500',
+    image: live2Img,
+    link: 'https://zte.co.in/',
   },
-  {
-    title: 'Custom Web App / Dashboard',
-    category: 'Advanced Solution',
-    description:
-      'Use this section for booking systems, admin panels, dashboards, educational portals, or custom business automation projects.',
-    highlights: ['Dashboard UI', 'Custom features', 'Payment or booking flow'],
-    icon: LayoutDashboard,
-    accent: 'from-slate-700 to-teal-600',
-  },
+
+ {
+  title: 'Sakshi Lights Website',
+  category: 'Electrical Brand',
+  description:
+    'Professional business website for an LED lighting and electrical services brand with product showcase, service sections, modern branding, and customer contact integration.',
+  highlights: [
+    'LED product showcase',
+    'Business-focused layout',
+    'WhatsApp contact integration',
+  ],
+  icon: LayoutDashboard,
+  accent: 'from-slate-700 to-teal-600',
+  image: live3Img,
+  link: 'https://sakshi-light-13a76b0.ingress-daribow.ewp.live/',
+},
+
+{
+  title: 'Trip Architect Travel Website',
+  category: 'Travel & Tourism',
+  description:
+    'Modern travel booking website designed for tour planners and travel agencies with itinerary sections, destination showcases, trip packages, and customer inquiry integration.',
+  highlights: [
+    'Travel package showcase',
+    'Modern tourism UI',
+    'Trip inquiry integration',
+  ],
+  icon: Plane,
+  accent: 'from-orange-500 to-amber-500',
+  image: live4Img,
+  link: 'https://www.triparchitect.in/sample-itineraries',
+}
 ];
 
 export default function LiveDemoPage() {
@@ -79,15 +120,18 @@ export default function LiveDemoPage() {
               className="max-w-3xl"
             >
               <p className="mb-4 text-sm font-bold uppercase tracking-wider text-teal-700">
-                Live Demo Portfolio
-              </p>
-              <h1 className="text-4xl font-bold leading-tight text-slate-950 sm:text-5xl">
-                Project examples you can show to clients
-              </h1>
-              <p className="mt-5 text-lg leading-relaxed text-slate-600">
-                Use these three sections to present your completed websites,
-                screenshots, project links, and client results.
-              </p>
+  Live Website Portfolio
+</p>
+
+<h1 className="text-4xl font-bold leading-tight text-slate-950 sm:text-5xl">
+  Real websites designed for modern businesses
+</h1>
+
+<p className="mt-5 text-lg leading-relaxed text-slate-600">
+  Explore some of our recently designed business websites built for gyms,
+  ecommerce brands, coaching institutes, and local businesses with modern UI,
+  mobile-friendly layouts, and customer-focused experiences.
+</p>
             </motion.div>
           </div>
         </section>
@@ -106,13 +150,19 @@ export default function LiveDemoPage() {
                   viewport={{ once: true }}
                   className="overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm"
                 >
-                  <div
-                    className={`flex aspect-[16/10] items-center justify-center bg-gradient-to-br ${project.accent}`}
-                  >
-                    <div className="rounded-lg bg-white/15 p-5 text-white backdrop-blur">
-                      <Icon className="h-12 w-12" />
-                    </div>
-                  </div>
+                <div className="relative aspect-[16/10] overflow-hidden">
+  <img
+    src={project.image}
+    alt={project.title}
+    className="h-full w-full object-cover transition duration-500 hover:scale-105"
+  />
+
+  <div className="absolute inset-0 bg-black/20" />
+
+  <div className="absolute left-4 top-4 rounded-lg bg-white/20 p-3 text-white backdrop-blur">
+    <Icon className="h-8 w-8" />
+  </div>
+</div>
 
                   <div className="p-6">
                     <p className="mb-2 text-sm font-bold uppercase tracking-wide text-teal-700">
@@ -135,13 +185,15 @@ export default function LiveDemoPage() {
                       ))}
                     </div>
 
-                    <button
-                      type="button"
-                      className="mt-6 inline-flex w-full items-center justify-center rounded-lg border border-slate-300 px-4 py-3 text-sm font-bold text-slate-800 transition hover:border-teal-500 hover:bg-teal-50 hover:text-teal-800"
-                    >
-                      Add Project Link
-                      <ExternalLink className="ml-2 h-4 w-4" />
-                    </button>
+                  <a
+  href={project.link}
+  target="_blank"
+  rel="noopener noreferrer"
+  className="mt-6 inline-flex w-full items-center justify-center rounded-lg border border-slate-300 px-4 py-3 text-sm font-bold text-slate-800 transition hover:border-teal-500 hover:bg-teal-50 hover:text-teal-800"
+>
+  View Live Website
+  <ExternalLink className="ml-2 h-4 w-4" />
+</a>
                   </div>
                 </motion.article>
               );
