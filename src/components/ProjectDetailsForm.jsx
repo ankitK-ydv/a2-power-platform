@@ -4,6 +4,12 @@ import { motion } from 'framer-motion';
 import { ArrowLeft, Loader } from 'lucide-react';
 import { getPackageName } from '../data/packageDetails';
 
+const isFullPaymentPackage = (packageType) =>
+  ['growth', 'seo', 'whatsapp', 'hosting'].includes(packageType);
+
+const isStandaloneServicePackage = (packageType) =>
+  ['seo', 'whatsapp', 'hosting'].includes(packageType);
+
 export default function ProjectDetailsForm() {
   const [selection, setSelection] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -100,8 +106,10 @@ export default function ProjectDetailsForm() {
               {getPackageName(selection.packageType)}
             </h2>
             <p className="text-gray-600 mt-2">
-              {selection.packageType === 'growth'
-                ? 'Monthly ads, WhatsApp lead generation, and local customer targeting'
+              {isFullPaymentPackage(selection.packageType)
+                ? selection.packageType === 'growth'
+                  ? 'Monthly ads, WhatsApp lead generation, and local customer targeting'
+                  : 'Standalone service for businesses that already have a website or need a specific setup'
                 : `${selection.pages} page${selection.pages !== 1 ? 's' : ''} - ${
                     selection.addons?.length > 0
                       ? selection.addons.join(', ')
@@ -170,22 +178,26 @@ export default function ProjectDetailsForm() {
                 />
               </div>
 
-              <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">
-                  Number of Pages
-                </label>
-                <input
-                  type="number"
-                  name="pages"
-                  value={formData.pages}
-                  readOnly
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg bg-gray-50 text-gray-600"
-                />
-              </div>
+              {!isFullPaymentPackage(selection.packageType) && (
+                <div>
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">
+                    Number of Pages
+                  </label>
+                  <input
+                    type="number"
+                    name="pages"
+                    value={formData.pages}
+                    readOnly
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg bg-gray-50 text-gray-600"
+                  />
+                </div>
+              )}
 
               <div>
                 <label className="block text-sm font-semibold text-gray-700 mb-2">
-                  Reference Website (Optional)
+                  {isStandaloneServicePackage(selection.packageType)
+                    ? 'Existing Website Link (Optional)'
+                    : 'Reference Website (Optional)'}
                 </label>
                 <input
                   type="url"
@@ -207,7 +219,11 @@ export default function ProjectDetailsForm() {
                 name="extraRequirements"
                 value={formData.extraRequirements}
                 onChange={handleChange}
-                placeholder="Tell us about sections, features, content ideas, colors, or any special requirements..."
+                placeholder={
+                  isStandaloneServicePackage(selection.packageType)
+                    ? 'Tell us what you need help with, your existing website link, login/setup details, or any special requirements...'
+                    : 'Tell us about sections, features, content ideas, colors, or any special requirements...'
+                }
                 rows="5"
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-teal-500"
               />

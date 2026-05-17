@@ -10,15 +10,18 @@ const PACKAGE_PRICES = {
   coding: 11999,
   custom: 29999,
   growth: 6000,
+  seo: 3000,
+  whatsapp: 1500,
+  hosting: 3999,
 };
 
 const GROWTH_PACKAGE_KEY = 'growth';
+const STANDALONE_SERVICE_KEYS = ['growth', 'seo', 'whatsapp', 'hosting'];
 
 const ADDON_PRICES = {
   SEO: 3000,
-  WhatsApp: 1500,
+  'WhatsApp Integration': 1500,
   'Hosting + Domain': 3999,
-  Blog: 2500,
 };
 
 const INCLUDED_PAGES = 4;
@@ -30,24 +33,12 @@ export default function PricingPage() {
   const [pages, setPages] = useState(4);
   const [selectedAddons, setSelectedAddons] = useState([]);
   const [extraWorkAmount, setExtraWorkAmount] = useState(0);
-  const [manualPayment, setManualPayment] = useState(false);
-  const [manualAmount, setManualAmount] = useState(0);
   const [showPackageGuide, setShowPackageGuide] = useState(false);
+  const isStandaloneService = STANDALONE_SERVICE_KEYS.includes(selectedPackage);
 
   const calculatePrice = () => {
-    if (manualPayment) {
-      return {
-        extraWorkTotal: 0,
-        addonsTotal: 0,
-        pagesExtra: 0,
-        total: manualAmount,
-        advance: manualAmount,
-        remaining: 0,
-      };
-    }
-
     const basePrice = PACKAGE_PRICES[selectedPackage] || PACKAGE_PRICES.wordpress;
-    if (selectedPackage === GROWTH_PACKAGE_KEY) {
+    if (isStandaloneService) {
       return {
         extraWorkTotal: 0,
         addonsTotal: 0,
@@ -93,13 +84,12 @@ export default function PricingPage() {
     const pricing = calculatePrice();
     const selection = {
       packageType: selectedPackage,
-      pages: selectedPackage === GROWTH_PACKAGE_KEY ? 1 : pages,
-      addons: selectedPackage === GROWTH_PACKAGE_KEY ? [] : selectedAddons,
-      extraWorkAmount: selectedPackage === GROWTH_PACKAGE_KEY ? 0 : extraWorkAmount,
+      pages: isStandaloneService ? 1 : pages,
+      addons: isStandaloneService ? [] : selectedAddons,
+      extraWorkAmount: isStandaloneService ? 0 : extraWorkAmount,
       total: pricing.total,
       advance: pricing.advance,
       remaining: pricing.remaining,
-      manualPayment,
     };
     localStorage.setItem('a2_selection', JSON.stringify(selection));
     window.location.href = '/form';
@@ -161,6 +151,7 @@ export default function PricingPage() {
               <div className="space-y-4">
                 {Object.entries(PACKAGE_PRICES).map(([key, price]) => {
                   const isGrowth = key === GROWTH_PACKAGE_KEY;
+                  const isStandalone = STANDALONE_SERVICE_KEYS.includes(key);
 
                   return (
                     <label
@@ -170,7 +161,7 @@ export default function PricingPage() {
                           ? 'border-teal-500 bg-teal-50'
                           : 'border-gray-200 hover:border-teal-300'
                       } ${
-                        isGrowth
+                        isStandalone
                           ? 'overflow-hidden shadow-md hover:shadow-xl ring-1 ring-teal-100'
                           : ''
                       }`}
@@ -318,48 +309,54 @@ export default function PricingPage() {
                   </div>
                 </motion.div>
               )}
-            </div>
 
-            {/* Manual Payment Toggle */}
-            {selectedPackage !== GROWTH_PACKAGE_KEY && (
-            <div className="bg-white rounded-lg shadow-lg p-8 mb-8">
-              <label className="flex items-center p-4 border-2 border-gray-200 rounded-lg cursor-pointer hover:border-teal-300 transition">
-                <input
-                  type="checkbox"
-                  checked={manualPayment}
-                  onChange={(e) => setManualPayment(e.target.checked)}
-                  className="w-4 h-4"
-                />
-                <div className="flex-1 ml-4">
-                  <div className="font-semibold">Pay Custom Amount</div>
-                  <div className="text-sm text-gray-600">
-                    Enter any amount you want to collect
-                  </div>
-                </div>
-              </label>
-
-              {manualPayment && (
+              {isStandaloneService && selectedPackage !== GROWTH_PACKAGE_KEY && (
                 <motion.div
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: 'auto' }}
-                  className="mt-4"
+                  initial={{ opacity: 0, y: 12 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="mt-6 rounded-xl border border-teal-200 bg-gradient-to-br from-teal-50 to-blue-50 p-6"
                 >
-                  <input
-                    type="number"
-                    min="1"
-                    step="100"
-                    placeholder="Enter amount"
-                    value={manualAmount}
-                    onChange={(e) => setManualAmount(Number(e.target.value))}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-teal-500"
-                  />
+                  <h3 className="text-xl font-bold text-slate-900">
+                    {PACKAGE_DETAILS[selectedPackage].name}
+                  </h3>
+                  <p className="mt-2 text-sm leading-relaxed text-slate-700">
+                    {PACKAGE_DETAILS[selectedPackage].description}
+                  </p>
+                  <div className="mt-5 grid gap-3 sm:grid-cols-2">
+                    {PACKAGE_DETAILS[selectedPackage].idealFor.map((item) => (
+                      <div
+                        key={item}
+                        className="flex items-center gap-2 rounded-lg bg-white p-3 text-sm text-slate-700 shadow-sm"
+                      >
+                        <CheckCircle className="h-4 w-4 flex-shrink-0 text-teal-600" />
+                        <span>{item}</span>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="mt-5 flex flex-col gap-3 sm:flex-row">
+                    <button
+                      type="button"
+                      onClick={handleContinue}
+                      className="inline-flex flex-1 items-center justify-center rounded-lg bg-gradient-to-r from-teal-600 to-blue-600 px-5 py-3 font-bold text-white transition hover:shadow-lg"
+                    >
+                      Purchase Service
+                    </button>
+                    <a
+                      href={`https://wa.me/918264737529?text=Hi%20A2%20POWER%2C%20I%20want%20to%20purchase%20${encodeURIComponent(PACKAGE_DETAILS[selectedPackage].name)}.`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex flex-1 items-center justify-center gap-2 rounded-lg border-2 border-teal-600 px-5 py-3 font-bold text-teal-700 transition hover:bg-teal-50"
+                    >
+                      Ask on WhatsApp
+                      <MessageCircle size={18} />
+                    </a>
+                  </div>
                 </motion.div>
               )}
             </div>
-            )}
 
             {/* Options */}
-            {!manualPayment && selectedPackage !== GROWTH_PACKAGE_KEY && (
+            {!isStandaloneService && (
               <div className="bg-white rounded-lg shadow-lg p-8">
                 <h2 className="text-2xl font-bold mb-6">Options</h2>
 
@@ -438,7 +435,7 @@ export default function PricingPage() {
               <h2 className="text-2xl font-bold mb-6">Price Summary</h2>
 
               <div className="space-y-4 mb-6 pb-6 border-b border-teal-200">
-                {!manualPayment && pricing.pagesExtra > 0 && (
+                {!isStandaloneService && pricing.pagesExtra > 0 && (
                   <div className="flex justify-between text-sm">
                     <span className="text-gray-600">Extra pages</span>
                     <span className="font-semibold">
@@ -447,7 +444,7 @@ export default function PricingPage() {
                   </div>
                 )}
 
-                {!manualPayment && pricing.addonsTotal > 0 && (
+                {!isStandaloneService && pricing.addonsTotal > 0 && (
                   <div className="flex justify-between text-sm">
                     <span className="text-gray-600">Add-ons</span>
                     <span className="font-semibold">
@@ -456,7 +453,7 @@ export default function PricingPage() {
                   </div>
                 )}
 
-                {!manualPayment && pricing.extraWorkTotal > 0 && (
+                {!isStandaloneService && pricing.extraWorkTotal > 0 && (
                   <div className="flex justify-between text-sm">
                     <span className="text-gray-600">Extra work</span>
                     <span className="font-semibold">
@@ -476,7 +473,7 @@ export default function PricingPage() {
                 </div>
               </div>
 
-              {!manualPayment && selectedPackage !== GROWTH_PACKAGE_KEY && (
+              {!isStandaloneService && (
                 <div className="bg-white rounded-lg p-4 mb-6">
                   <div className="flex justify-between text-sm mb-2">
                     <span className="text-gray-600">Advance (40%)</span>
@@ -501,7 +498,9 @@ export default function PricingPage() {
               >
                 {selectedPackage === GROWTH_PACKAGE_KEY
                   ? 'Start Growing'
-                  : 'Continue to Project Details'}
+                  : isStandaloneService
+                    ? 'Purchase Service'
+                    : 'Continue to Project Details'}
               </motion.button>
 
               {selectedPackage === GROWTH_PACKAGE_KEY && (

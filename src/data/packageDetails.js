@@ -77,6 +77,51 @@ export const PACKAGE_DETAILS = {
     ],
     bestChoice: 'Best for local businesses that want monthly leads and visibility.',
   },
+  seo: {
+    name: 'SEO Service',
+    shortDescription:
+      'Improve local search visibility for an existing or new business website.',
+    description:
+      'A standalone SEO service for businesses that already have a website and want better visibility on Google. Includes basic website review, local keyword focus, metadata improvements, and search-friendly recommendations.',
+    idealFor: [
+      'Existing business websites',
+      'Local service providers',
+      'Clinics and shops',
+      'Coaching centers',
+      'Businesses that want better Google visibility',
+    ],
+    bestChoice: 'Choose this when you already have a website and need SEO help.',
+  },
+  whatsapp: {
+    name: 'WhatsApp Integration',
+    shortDescription:
+      'Add direct WhatsApp lead buttons and inquiry flow to your existing website.',
+    description:
+      'A standalone WhatsApp integration service for businesses that already have a website. We connect clear WhatsApp contact buttons and inquiry links so customers can message you faster.',
+    idealFor: [
+      'Existing websites',
+      'Lead generation pages',
+      'Service businesses',
+      'Local shops',
+      'Businesses that want faster customer inquiries',
+    ],
+    bestChoice: 'Choose this when you need WhatsApp leads on an existing website.',
+  },
+  hosting: {
+    name: 'Hosting + Domain',
+    shortDescription:
+      'Secure Hosting & Domain Integration with 6 Months Basic Technical Support Included.',
+    description:
+      'Secure hosting and domain integration for businesses that already have a website or need reliable setup before launch. Includes 6 months of basic technical support. Custom or premium domains may cost extra if market pricing is higher.',
+    idealFor: [
+      'Businesses with an existing website',
+      'New website launches',
+      'Domain setup',
+      'Hosting setup',
+      'Business email/domain planning',
+    ],
+    bestChoice: 'Choose this when you only need hosting and domain setup.',
+  },
 };
 
 export function getPackageName(packageType) {

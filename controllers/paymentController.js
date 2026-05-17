@@ -9,7 +9,10 @@ const packagePrices = {
   wordpress: 7999,
   coding: 11999,
   custom: 29999,
-  growth: 6000
+  growth: 6000,
+  seo: 3000,
+  whatsapp: 1500,
+  hosting: 3999
 };
 
 const includedPages = 4;
@@ -18,10 +21,11 @@ const extraPagePrice = 1500;
 
 const addonPrices = {
   SEO: 3000,
-  WhatsApp: 1500,
-  'Hosting + Domain': 3999,
-  Blog: 2500
+  'WhatsApp Integration': 1500,
+  'Hosting + Domain': 3999
 };
+
+const fullPaymentPackageTypes = ['growth', 'seo', 'whatsapp', 'hosting'];
 
 function toWholeNumber(value, fallback = 0) {
   const number = Number(value);
@@ -30,20 +34,6 @@ function toWholeNumber(value, fallback = 0) {
 }
 
 function calculateExpectedPrice({ packageType, pages, addons = [], extraWorkAmount = 0, totalPrice }) {
-  if (packageType === 'manual') {
-    const manualTotal = toWholeNumber(totalPrice);
-    if (manualTotal < 1) {
-      throw new Error('Manual payment amount must be at least Rs. 1');
-    }
-    return {
-      packageType: 'manual',
-      pages: 1,
-      addons: [],
-      extraWorkAmount: 0,
-      totalPrice: manualTotal
-    };
-  }
-
   if (!packagePrices[packageType]) {
     throw new Error('Invalid package selected');
   }
@@ -51,13 +41,13 @@ function calculateExpectedPrice({ packageType, pages, addons = [], extraWorkAmou
   const safePages = Math.max(toWholeNumber(pages, 1), 1);
   const safeExtraWorkAmount = Math.max(toWholeNumber(extraWorkAmount), 0);
   const safeAddons = Array.isArray(addons) ? addons.filter((addon) => addonPrices[addon]) : [];
-  if (packageType === 'growth') {
+  if (fullPaymentPackageTypes.includes(packageType)) {
     return {
       packageType,
       pages: 1,
       addons: [],
       extraWorkAmount: 0,
-      totalPrice: packagePrices.growth
+      totalPrice: packagePrices[packageType]
     };
   }
 
@@ -140,11 +130,10 @@ exports.createOrder = async (req, res) => {
       });
     }
 
-    const isManualPayment = expected.packageType === 'manual';
-    const isGrowthPackage = expected.packageType === 'growth';
+    const isFullPaymentPackage = fullPaymentPackageTypes.includes(expected.packageType);
     const advanceAmount = Math.round(expected.totalPrice * 0.4);
     const remainingAmount = expected.totalPrice - advanceAmount;
-    const payableAmount = !isManualPayment && !isGrowthPackage && payType === 'advance' ? advanceAmount : expected.totalPrice;
+    const payableAmount = !isFullPaymentPackage && payType === 'advance' ? advanceAmount : expected.totalPrice;
     const amountToCharge = payableAmount * 100; // in paise
 
     // create razorpay order
@@ -173,9 +162,9 @@ exports.createOrder = async (req, res) => {
         extraWorkAmount: expected.extraWorkAmount,
         totalPrice: expected.totalPrice,
         paidAmount: 0,
-        advancePaid: !isManualPayment && !isGrowthPackage && payType === 'advance' ? advanceAmount : 0,
-        remainingAmount: !isManualPayment && !isGrowthPackage && payType === 'advance' ? remainingAmount : 0,
-        paymentType: resolvedPaymentTypeLabel(payType, isManualPayment || isGrowthPackage),
+        advancePaid: !isFullPaymentPackage && payType === 'advance' ? advanceAmount : 0,
+        remainingAmount: !isFullPaymentPackage && payType === 'advance' ? remainingAmount : 0,
+        paymentType: resolvedPaymentTypeLabel(payType, isFullPaymentPackage),
         paymentStatus: 'Pending'
       });
       await client.save();

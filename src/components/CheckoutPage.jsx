@@ -30,8 +30,11 @@ export default function CheckoutPage() {
 
   const getPayableAmount = () => {
     if (!state) return 0;
-    return state.manualPayment ? state.total : state.advance;
+    return isFullPaymentPackage(state.packageType) ? state.total : state.advance;
   };
+
+  const isFullPaymentPackage = (packageType) =>
+    ['growth', 'seo', 'whatsapp', 'hosting'].includes(packageType);
 
   const getReceiptPackageName = (receiptData) =>
     receiptData.websiteType || getPackageName(receiptData.packageType);
@@ -48,11 +51,11 @@ export default function CheckoutPage() {
 
       const payload = {
         totalPrice: state.total,
-        packageType: state.manualPayment ? 'manual' : state.packageType,
+        packageType: state.packageType,
         pages: state.pages,
         addons: state.addons || [],
         extraWorkAmount: state.extraWorkAmount || 0,
-        payType: state.manualPayment ? 'full' : payType,
+        payType: isFullPaymentPackage(state.packageType) ? 'full' : payType,
         clientBrief: brief,
       };
 
@@ -329,10 +332,14 @@ export default function CheckoutPage() {
                   <span className="text-gray-600">Phone</span>
                   <span className="font-semibold">{brief?.phone || '-'}</span>
                 </div>
-                {state.packageType === 'growth' ? (
+                {isFullPaymentPackage(state.packageType) ? (
                   <div className="flex justify-between">
                     <span className="text-gray-600">Plan Type</span>
-                    <span className="font-semibold">Monthly lead generation</span>
+                    <span className="font-semibold">
+                      {state.packageType === 'growth'
+                        ? 'Monthly lead generation'
+                        : 'Standalone service'}
+                    </span>
                   </div>
                 ) : (
                   <>
@@ -386,7 +393,7 @@ export default function CheckoutPage() {
               <h3 className="text-xl font-bold mb-6">Payment Method</h3>
 
               <div className="space-y-3">
-                {!state.manualPayment && state.packageType !== 'growth' && (
+                {!isFullPaymentPackage(state.packageType) && (
                   <motion.button
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
@@ -411,7 +418,7 @@ export default function CheckoutPage() {
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   onClick={() =>
-                    handlePayment(state.manualPayment ? 'full' : 'full')
+                    handlePayment('full')
                   }
                   disabled={loading}
                   className="w-full bg-green-600 text-white font-bold py-3 px-4 rounded-lg hover:shadow-lg transition disabled:opacity-50"
@@ -431,7 +438,7 @@ export default function CheckoutPage() {
                 🔒 Secure payments powered by Razorpay
               </div>
 
-              {state.remaining > 0 && !state.manualPayment && state.packageType !== 'growth' && (
+              {state.remaining > 0 && !isFullPaymentPackage(state.packageType) && (
                 <div className="mt-6 p-4 bg-amber-50 border border-amber-200 rounded-lg text-xs text-amber-800">
                   <p className="font-semibold mb-1">Payment Terms</p>
                   <p>
