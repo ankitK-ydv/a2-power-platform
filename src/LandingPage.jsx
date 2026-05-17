@@ -71,27 +71,22 @@ const HeroSection = () => {
           {/* Left Content */}
           <FadeInUp>
             <div className="space-y-6">
-              <div className="inline-block">
+              <div className="flex flex-wrap gap-3">
                 <motion.span
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   className="px-4 py-2 bg-teal-100 text-teal-700 rounded-full text-sm font-semibold"
                 >
-                  ✨ Perfect for local business owners
+                  Built for local business growth
+                </motion.span>
+                <motion.span
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  className="px-4 py-2 bg-emerald-100 text-emerald-700 rounded-full text-sm font-semibold"
+                >
+                  MSME Registered Business
                 </motion.span>
               </div>
-
-       
-
-<div className="inline-block ml-3">
-  <motion.span
-    initial={{ opacity: 0, x: -20 }}
-    animate={{ opacity: 1, x: 0 }}
-    className="px-4 py-2 bg-emerald-100 text-emerald-700 rounded-full text-sm font-semibold"
-  >
-    ✅ MSME Registered Business
-  </motion.span>
-</div>
 
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-slate-900 leading-tight">
                 Turn Local Visitors Into{' '}
@@ -101,7 +96,7 @@ const HeroSection = () => {
               </h1>
 
               <p className="text-lg sm:text-xl text-slate-600 leading-relaxed">
-                We create websites for local businesses that help you get calls, WhatsApp messages, bookings, and more customers—even if you've never had a website before.
+                We build websites and run digital marketing campaigns that turn local visitors into paying customers through WhatsApp, calls, and local leads.
               </p>
 
               {/* Trust Badges */}
@@ -116,33 +111,31 @@ const HeroSection = () => {
                 </div>
                 <div className="flex items-center gap-3">
                   <CheckCircle className="w-5 h-5 text-teal-500 flex-shrink-0" />
+                  <span className="text-slate-700">Facebook & Instagram Ads - Local customer targeting</span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <CheckCircle className="w-5 h-5 text-teal-500 flex-shrink-0" />
                   <span className="text-slate-700">Fast Loading - Google Ready</span>
                 </div>
               </div>
 
               {/* CTA Buttons */}
               <div className="flex flex-col sm:flex-row gap-4 pt-4">
-                <motion.div
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
+                <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                   <Link
                     to="/pricing"
                     className="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-teal-500 to-teal-600 text-white font-bold rounded-lg hover:shadow-lg transition-shadow"
                   >
-                    Get My Website Now
+                    Start Growing
                     <ArrowRight className="inline-block ml-2 w-5 h-5" />
                   </Link>
                 </motion.div>
-                <motion.div
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
+                <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                   <Link
                     to="/live-demo"
                     className="inline-flex items-center justify-center px-8 py-4 border-2 border-slate-300 text-slate-700 font-bold rounded-lg hover:bg-slate-50 transition-colors"
                   >
-                    View Our Recent Work
+                    View Our Work
                   </Link>
                 </motion.div>
               </div>
@@ -165,7 +158,7 @@ const HeroSection = () => {
                       animate={{ scale: [1, 1.2, 1] }}
                       transition={{ duration: 2, repeat: Infinity }}
                     />
-                    <span className="text-sm font-semibold text-slate-700">Website Live</span>
+                    <span className="text-sm font-semibold text-slate-700">Growth System Live</span>
                   </div>
 
                   <div className="space-y-3">
@@ -177,13 +170,13 @@ const HeroSection = () => {
                     </div>
 
                     <div className="p-3 bg-blue-50 rounded-lg">
-                      <p className="text-xs text-slate-600">Lead Messages</p>
+                      <p className="text-xs text-slate-600">WhatsApp Leads</p>
                       <p className="text-2xl font-bold text-slate-900">24/7</p>
                     </div>
 
                     <div className="p-3 bg-green-50 rounded-lg">
-                      <p className="text-xs text-slate-600">Response Speed</p>
-                      <p className="text-2xl font-bold text-slate-900">Instant</p>
+                      <p className="text-xs text-slate-600">Local Ad Targeting</p>
+                      <p className="text-2xl font-bold text-slate-900">Ready</p>
                     </div>
                   </div>
                 </div>
@@ -215,7 +208,7 @@ const HeroSection = () => {
                     <MessageCircle className="w-5 h-5 text-blue-500" />
                     <div>
                       <p className="text-xs text-slate-600">WhatsApp Leads</p>
-                      <p className="font-bold text-slate-900">24/7</p>
+                      <p className="font-bold text-slate-900">Instant</p>
                     </div>
                   </div>
                 </motion.div>
@@ -314,6 +307,12 @@ const EducationSection = () => {
       icon: Shield,
       color: 'from-purple-500 to-purple-600',
     },
+    {
+      title: 'What is Digital Marketing?',
+      description: 'Digital marketing uses Facebook ads, Instagram ads, WhatsApp, and local targeting to bring more customers to your business.',
+      icon: TrendingUp,
+      color: 'from-emerald-500 to-teal-600',
+    },
   ];
 
   return (
@@ -322,15 +321,15 @@ const EducationSection = () => {
         <FadeInUp>
           <div className="text-center mb-12">
             <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-4">
-              Understanding Website Basics
+              Understanding Online Growth Basics
             </h2>
             <p className="text-lg text-slate-600">
-              We explain technical words in simple language
+              We explain websites and marketing in simple business language
             </p>
           </div>
         </FadeInUp>
 
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
           {cards.map((card, idx) => (
             <FadeInUp key={idx} delay={idx * 0.1}>
               <motion.div
@@ -354,8 +353,8 @@ const EducationSection = () => {
 // Why Website Section
 const WhyWebsiteSection = () => {
   const reasons = [
-    { icon: Search, title: 'Customers find you on Google', desc: 'People search for your business type online' },
-    { icon: MessageCircle, title: 'WhatsApp leads automatically', desc: 'Customers contact you instantly' },
+    { icon: Search, title: 'Customers find you online', desc: 'People discover your business through Google, ads, and local searches' },
+    { icon: MessageCircle, title: 'WhatsApp leads automatically', desc: 'Customers contact you instantly from your website and campaigns' },
     { icon: Award, title: 'Looks professional & trusted', desc: 'Builds credibility for your business' },
     { icon: Clock, title: 'Works 24/7 for you', desc: 'Never closes - always getting leads' },
     { icon: Users, title: 'More trust from customers', desc: 'Shows you are serious about business' },
@@ -370,10 +369,10 @@ const WhyWebsiteSection = () => {
         <FadeInUp>
           <div className="text-center mb-12">
             <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-4">
-              Why Your Business Needs A Website
+              Why Your Business Needs Online Growth
             </h2>
             <p className="text-lg text-slate-600">
-              Real benefits that increase your customers and sales
+              Websites, WhatsApp, and digital marketing working together to increase customers and sales
             </p>
           </div>
         </FadeInUp>
@@ -394,6 +393,102 @@ const WhyWebsiteSection = () => {
             </FadeInUp>
           ))}
         </div>
+      </div>
+    </section>
+  );
+};
+
+// Digital Marketing Section
+const DigitalMarketingSection = () => {
+  const services = [
+    {
+      icon: TrendingUp,
+      title: 'Facebook & Instagram Ads',
+      desc: 'Campaigns designed to reach nearby customers who are ready to call, visit, or message your business.',
+    },
+    {
+      icon: MapPin,
+      title: 'Local Area Targeting',
+      desc: 'Focus your ad budget on the exact city, area, and customer type most likely to buy from you.',
+    },
+    {
+      icon: MessageCircle,
+      title: 'WhatsApp Lead Generation',
+      desc: 'Connect ads and landing pages directly to WhatsApp so inquiries reach you quickly.',
+    },
+    {
+      icon: Zap,
+      title: 'Weekly Optimization',
+      desc: 'Improve audience, creative, and performance so your campaigns keep moving toward better leads.',
+    },
+  ];
+
+  return (
+    <section id="marketing" className="py-16 sm:py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-slate-50 to-white">
+      <div className="max-w-6xl mx-auto">
+        <FadeInUp>
+          <div className="text-center mb-12">
+            <span className="inline-flex px-4 py-2 bg-teal-100 text-teal-700 rounded-full text-sm font-semibold mb-4">
+              New Service
+            </span>
+            <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-4">
+              Digital Marketing & Lead Generation
+            </h2>
+            <p className="text-lg text-slate-600 max-w-3xl mx-auto leading-relaxed">
+              A2 POWER helps local businesses get WhatsApp inquiries, calls, local customers, and more visibility using Facebook & Instagram ads, local targeting, ad optimization, and WhatsApp integration.
+            </p>
+          </div>
+        </FadeInUp>
+
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+          {services.map((service, idx) => (
+            <FadeInUp key={service.title} delay={idx * 0.08}>
+              <motion.div
+                className="group h-full bg-white rounded-xl shadow-md hover:shadow-xl transition-all p-6 border border-slate-100 hover:border-teal-300"
+                whileHover={{ y: -8 }}
+              >
+                <div className="bg-gradient-to-r from-teal-500 to-blue-600 w-12 h-12 rounded-lg flex items-center justify-center mb-5 text-white group-hover:scale-110 transition-transform">
+                  <service.icon className="w-6 h-6" />
+                </div>
+                <h3 className="font-bold text-slate-900 mb-2">{service.title}</h3>
+                <p className="text-sm text-slate-600 leading-relaxed">{service.desc}</p>
+              </motion.div>
+            </FadeInUp>
+          ))}
+        </div>
+
+        <FadeInUp>
+          <div className="bg-gradient-to-r from-teal-50 to-blue-50 rounded-xl p-8 border border-teal-100">
+            <div className="grid lg:grid-cols-3 gap-6 items-center">
+              <div className="lg:col-span-2">
+                <h3 className="text-2xl font-bold text-slate-900 mb-3">
+                  Want more local leads this month?
+                </h3>
+                <p className="text-slate-600 leading-relaxed">
+                  We create the campaign, target your local audience, connect WhatsApp, monitor performance, and help your business generate customer inquiries.
+                </p>
+              </div>
+              <div className="flex flex-col sm:flex-row lg:flex-col gap-3">
+                <Link
+                  to="/pricing"
+                  className="inline-flex items-center justify-center px-6 py-3 bg-gradient-to-r from-teal-500 to-teal-600 text-white font-bold rounded-lg hover:shadow-lg transition-shadow"
+                >
+                  Book This Package
+                  <ArrowRight className="ml-2 w-5 h-5" />
+                </Link>
+                <a
+                  href="https://wa.me/918264737529?text=Hi%20A2%20POWER%2C%20I%20want%20leads%20for%20my%20local%20business."
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center px-6 py-3 border-2 border-teal-500 text-teal-700 font-bold rounded-lg hover:bg-teal-50 transition-colors"
+                >
+                  Get Leads Now
+                  <MessageCircle className="ml-2 w-5 h-5" />
+                </a>
+              </div>
+            </div>
+          </div>
+        </FadeInUp>
       </div>
     </section>
   );
@@ -486,11 +581,11 @@ const BeforeAfterSection = () => {
 const ProcessSection = () => {
   const steps = [
     { number: 1, title: 'Understand Your Business', desc: 'We learn about your services and customers' },
-    { number: 2, title: 'Design Your Website', desc: 'We create a beautiful design for you' },
-    { number: 3, title: 'Connect WhatsApp', desc: 'Set up instant lead messaging' },
-    { number: 4, title: 'Mobile Optimization', desc: 'Perfect experience on all devices' },
-    { number: 5, title: 'Launch & Announce', desc: 'Your website goes live' },
-    { number: 6, title: 'Get Customer Leads', desc: 'Customers start contacting you' },
+    { number: 2, title: 'Build Your Online Presence', desc: 'We create a professional website or campaign plan' },
+    { number: 3, title: 'Connect WhatsApp', desc: 'Set up instant lead messaging and inquiry flow' },
+    { number: 4, title: 'Target Local Customers', desc: 'Focus on the areas and audiences that matter' },
+    { number: 5, title: 'Launch & Optimize', desc: 'Your website or ads go live with tracking' },
+    { number: 6, title: 'Get Customer Leads', desc: 'Customers start contacting you through calls and WhatsApp' },
   ];
 
   return (
@@ -499,10 +594,10 @@ const ProcessSection = () => {
         <FadeInUp>
           <div className="text-center mb-12">
             <h2 className="text-3xl sm:text-4xl font-bold mb-4">
-              How We Build Your Website
+              How We Grow Your Business Online
             </h2>
             <p className="text-lg text-slate-300">
-              Simple, fast process from start to finish
+              Simple, focused process from setup to customer inquiries
             </p>
           </div>
         </FadeInUp>
@@ -535,9 +630,9 @@ const ProcessSection = () => {
 const StatsSection = () => {
   const stats = [
     { label: 'Websites Built', value: 25, suffix: '+' },
-    { label: 'Leads Generated', value: 1500, suffix: '+' },
+    { label: 'Local Leads Generated', value: 1500, suffix: '+' },
     { label: 'Happy Clients', value: 20, suffix: '+' },
-    { label: 'Avg. Loading Speed', value: 1.2, suffix: 's' },
+    { label: 'Growth Tools Connected', value: 50, suffix: '+' },
   ];
 
   return (
@@ -546,10 +641,10 @@ const StatsSection = () => {
         <FadeInUp>
           <div className="text-center mb-12">
             <h2 className="text-3xl sm:text-4xl font-bold mb-4">
-              We've Already Helped Local Buinesses Like Yours
+              We Help Local Businesses Grow Online
             </h2>
             <p className="text-lg text-white/90">
-              Real results from real local businesses
+              Websites, WhatsApp, and digital marketing built for real customer growth
             </p>
           </div>
         </FadeInUp>
@@ -586,25 +681,25 @@ const TestimonialsSection = () => {
     {
       name: 'Rajesh Kumar',
       business: 'Gym Owner',
-      text: 'My website got me 50+ new members in the first month. Customers found me on Google and WhatsApp messages came automatically!',
+      text: 'A2 POWER helped us look professional online and bring new inquiries directly to WhatsApp. It made follow-up much easier.',
       rating: 5,
     },
     {
       name: 'Priya Singh',
       business: 'Makhana Shop',
-      text: 'Best investment for my business. Bookings increased by 40% and I get WhatsApp messages from customers all day.',
+      text: 'The website and marketing guidance helped more local customers understand our products and contact us without confusion.',
       rating: 5,
     },
     {
       name: 'Ravi Chaurasia',
       business: 'Sakshi Light',
-      text: 'Website is amazing! I get 20+ orders daily through WhatsApp now. Professional design makes customers trust me.',
+      text: 'Customers now see our lighting products online and message us on WhatsApp. The setup feels clean, trusted, and easy to use.',
       rating: 5,
     },
     {
       name: 'Neha Sharma',
       business: 'Trip Architect',
-      text: 'Website brought 30 new students to my coaching. People search online for coaching centers and found me!',
+      text: 'Their local business approach is practical. The pages, calls-to-action, and WhatsApp flow helped us capture more serious leads.',
       rating: 5,
     },
   ];
@@ -615,10 +710,10 @@ const TestimonialsSection = () => {
         <FadeInUp>
           <div className="text-center mb-12">
             <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-4">
-              Happy Local Business Owners
+              Trusted By Local Business Owners
             </h2>
             <p className="text-lg text-slate-600">
-              Real customers, real results, real growth
+              Clear websites, stronger visibility, and easier customer inquiries
             </p>
           </div>
         </FadeInUp>
@@ -674,7 +769,7 @@ const FinalCTASection = () => {
           </h2>
 
           <p className="text-lg sm:text-xl text-white/90 mb-8 leading-relaxed">
-            Get a modern website that brings customers to your business. Join hundreds of local business owners already getting more leads, calls, and sales.
+            Get a modern website and digital marketing system that brings customers to your business through WhatsApp inquiries, calls, local ads, and stronger online visibility.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -684,7 +779,7 @@ const FinalCTASection = () => {
                 whileTap={{ scale: 0.95 }}
                 className="px-8 py-4 bg-gradient-to-r from-teal-400 to-teal-500 text-slate-900 font-bold rounded-lg hover:shadow-2xl transition-shadow text-lg"
               >
-                Start My Website Today
+                Start Growing
                 <ArrowRight className="inline-block ml-2 w-5 h-5" />
               </motion.button>
             </Link>
@@ -701,7 +796,7 @@ const FinalCTASection = () => {
           </div>
 
           <p className="mt-8 text-white/70 text-sm">
-            ✓ Free Consultation • ✓ Fast Delivery • ✓ Affordable Pricing • ✓ 24/7 Support
+            Free Consultation - MSME Registered - WhatsApp Integrated - Local Business Focused
           </p>
         </FadeInUp>
       </div>
@@ -714,7 +809,7 @@ const FAQSection = () => {
   const faqs = [
     {
       q: 'How much does a website cost?',
-      a: 'Starting from ₹3,999. Pricing depends on your business type and features needed. We offer packages for every budget.',
+      a: 'Starting from Rs. 3,999. Pricing depends on your business type and features needed. We also offer a monthly local business growth package for ads and lead generation.',
     },
     {
       q: 'How long does it take to build my website?',
@@ -749,7 +844,7 @@ const FAQSection = () => {
               Frequently Asked Questions
             </h2>
             <p className="text-lg text-slate-600">
-              Everything you need to know about your new website
+              Everything you need to know about websites, WhatsApp leads, and digital marketing
             </p>
           </div>
         </FadeInUp>
@@ -840,6 +935,7 @@ const Navbar = () => {
             {[
               { label: 'How It Works', id: 'how-it-works' },
               { label: 'Services', id: 'services' },
+              { label: 'Marketing', id: 'marketing' },
               { label: 'Process', id: 'process' },
               { label: 'Testimonials', id: 'testimonials' },
             ].map((item) => (
@@ -892,6 +988,7 @@ const Navbar = () => {
             {[
               { label: 'How It Works', id: 'how-it-works' },
               { label: 'Services', id: 'services' },
+              { label: 'Marketing', id: 'marketing' },
               { label: 'Process', id: 'process' },
               { label: 'Testimonials', id: 'testimonials' },
             ].map((item) => (
@@ -934,7 +1031,7 @@ const Footer = () => {
               <span className="font-bold">POWER</span>
             </div>
             <p className="text-slate-400 text-sm">
-              Websites for local businesses that grow your sales.
+              Websites and digital marketing for local businesses that want more customers, calls, and WhatsApp inquiries.
             </p>
 
             <p className="mt-2 text-sm text-teal-400 font-medium">
@@ -956,9 +1053,9 @@ const Footer = () => {
             <h4 className="font-bold mb-4">Services</h4>
             <ul className="space-y-2 text-slate-400 text-sm">
               <li><a href="#" className="hover:text-teal-400 transition-colors">Business Websites</a></li>
+              <li><a href="#" className="hover:text-teal-400 transition-colors">Facebook & Instagram Ads</a></li>
+              <li><a href="#" className="hover:text-teal-400 transition-colors">WhatsApp Lead Generation</a></li>
               <li><a href="#" className="hover:text-teal-400 transition-colors">E-commerce</a></li>
-              <li><a href="#" className="hover:text-teal-400 transition-colors">Custom Design</a></li>
-              <li><a href="#" className="hover:text-teal-400 transition-colors">SEO</a></li>
             </ul>
           </div>
 
@@ -1023,6 +1120,7 @@ export default function LandingPage() {
       <HowWebsiteWorksSection />
       <EducationSection />
       <WhyWebsiteSection />
+      <DigitalMarketingSection />
       <BeforeAfterSection />
       <ProcessSection />
       <StatsSection />

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowLeft, Info, X } from 'lucide-react';
+import { ArrowLeft, CheckCircle, Info, MessageCircle, X } from 'lucide-react';
 import { PACKAGE_DETAILS } from '../data/packageDetails';
 
 const PACKAGE_PRICES = {
@@ -9,7 +9,10 @@ const PACKAGE_PRICES = {
   wordpress: 7999,
   coding: 11999,
   custom: 29999,
+  growth: 6000,
 };
+
+const GROWTH_PACKAGE_KEY = 'growth';
 
 const ADDON_PRICES = {
   SEO: 3000,
@@ -44,6 +47,17 @@ export default function PricingPage() {
     }
 
     const basePrice = PACKAGE_PRICES[selectedPackage] || PACKAGE_PRICES.wordpress;
+    if (selectedPackage === GROWTH_PACKAGE_KEY) {
+      return {
+        extraWorkTotal: 0,
+        addonsTotal: 0,
+        pagesExtra: 0,
+        total: basePrice,
+        advance: basePrice,
+        remaining: 0,
+      };
+    }
+
     const includedPages =
       selectedPackage === 'landing' ? LANDING_INCLUDED_PAGES : INCLUDED_PAGES;
     const extraPages = Math.max(pages - includedPages, 0);
@@ -79,9 +93,9 @@ export default function PricingPage() {
     const pricing = calculatePrice();
     const selection = {
       packageType: selectedPackage,
-      pages,
-      addons: selectedAddons,
-      extraWorkAmount,
+      pages: selectedPackage === GROWTH_PACKAGE_KEY ? 1 : pages,
+      addons: selectedPackage === GROWTH_PACKAGE_KEY ? [] : selectedAddons,
+      extraWorkAmount: selectedPackage === GROWTH_PACKAGE_KEY ? 0 : extraWorkAmount,
       total: pricing.total,
       advance: pricing.advance,
       remaining: pricing.remaining,
@@ -102,10 +116,9 @@ export default function PricingPage() {
         className="bg-gradient-to-r from-teal-600 to-blue-600 text-white py-16"
       >
         <div className="container mx-auto px-4 max-w-6xl">
-          <h1 className="text-4xl font-bold mb-4">Choose Your Website Plan</h1>
+          <h1 className="text-4xl font-bold mb-4">Choose Your Growth Plan</h1>
           <p className="text-lg opacity-90">
-            Transparent pricing. No surprises. Pick a package, customize it, and
-            see your price instantly.
+            Transparent pricing for websites, WhatsApp integrations, and local business lead generation.
           </p>
         </div>
       </motion.section>
@@ -146,40 +159,169 @@ export default function PricingPage() {
                 domain and its market price is higher, the final price may vary.
               </div>
               <div className="space-y-4">
-                {Object.entries(PACKAGE_PRICES).map(([key, price]) => (
-                  <label
-                    key={key}
-                    className={`flex items-start p-4 border-2 rounded-lg cursor-pointer transition ${
-                      selectedPackage === key
-                        ? 'border-teal-500 bg-teal-50'
-                        : 'border-gray-200 hover:border-teal-300'
-                    }`}
-                  >
-                    <input
-                      type="radio"
-                      name="package"
-                      value={key}
-                      checked={selectedPackage === key}
-                      onChange={(e) => setSelectedPackage(e.target.value)}
-                      className="w-4 h-4 mt-1"
-                    />
-                    <div className="flex-1 ml-4">
-                      <div className="font-semibold">
-                        {PACKAGE_DETAILS[key].name}
+                {Object.entries(PACKAGE_PRICES).map(([key, price]) => {
+                  const isGrowth = key === GROWTH_PACKAGE_KEY;
+
+                  return (
+                    <label
+                      key={key}
+                      className={`relative flex items-start p-4 border-2 rounded-lg cursor-pointer transition ${
+                        selectedPackage === key
+                          ? 'border-teal-500 bg-teal-50'
+                          : 'border-gray-200 hover:border-teal-300'
+                      } ${
+                        isGrowth
+                          ? 'overflow-hidden shadow-md hover:shadow-xl ring-1 ring-teal-100'
+                          : ''
+                      }`}
+                    >
+                      {isGrowth && (
+                        <div className="absolute right-4 top-3 flex flex-wrap justify-end gap-2">
+                          <span className="rounded-full bg-gradient-to-r from-teal-600 to-blue-600 px-3 py-1 text-xs font-bold text-white">
+                            Most Popular
+                          </span>
+                          <span className="rounded-full bg-emerald-100 px-3 py-1 text-xs font-bold text-emerald-700">
+                            Best for Local Businesses
+                          </span>
+                        </div>
+                      )}
+                      <input
+                        type="radio"
+                        name="package"
+                        value={key}
+                        checked={selectedPackage === key}
+                        onChange={(e) => setSelectedPackage(e.target.value)}
+                        className="w-4 h-4 mt-1"
+                      />
+                      <div className={`flex-1 ml-4 ${isGrowth ? 'pr-0 sm:pr-56 pt-9 sm:pt-0' : ''}`}>
+                        <div className="font-semibold">
+                          {PACKAGE_DETAILS[key].name}
+                        </div>
+                        <div className="text-sm text-gray-600">
+                          {PACKAGE_DETAILS[key].shortDescription}
+                        </div>
                       </div>
-                      <div className="text-sm text-gray-600">
-                        {PACKAGE_DETAILS[key].shortDescription}
+                      <div className="font-bold text-lg text-teal-600 whitespace-nowrap">
+                        {'\u20b9'}{price.toLocaleString('en-IN')}
+                        {isGrowth && <span className="text-sm text-gray-600"> / Month</span>}
                       </div>
-                    </div>
-                    <div className="font-bold text-lg text-teal-600">
-                      ₹{price.toLocaleString('en-IN')}
-                    </div>
-                  </label>
-                ))}
+                    </label>
+                  );
+                })}
               </div>
+
+              {selectedPackage === GROWTH_PACKAGE_KEY && (
+                <motion.div
+                  initial={{ opacity: 0, y: 12 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="mt-6 rounded-xl border border-teal-200 bg-gradient-to-br from-teal-50 to-blue-50 p-6"
+                >
+                  <div className="mb-5">
+                    <h3 className="text-xl font-bold text-slate-900">
+                      Digital Marketing & Lead Generation
+                    </h3>
+                    <p className="mt-2 text-sm leading-relaxed text-slate-700">
+                      Perfect for local businesses that want more customers, WhatsApp inquiries, and online visibility through Facebook & Instagram advertising.
+                    </p>
+                  </div>
+
+                  <div className="grid gap-6 md:grid-cols-2">
+                    <div>
+                      <p className="mb-3 text-sm font-bold text-slate-900">What's included</p>
+                      <ul className="space-y-2 text-sm text-slate-700">
+                        {[
+                          'Facebook & Instagram Ads Setup',
+                          'Professional Ad Campaign Management',
+                          'Local Area Audience Targeting',
+                          'WhatsApp Lead Integration',
+                          'Weekly Ads Optimization',
+                          'Lead Generation Support',
+                          'Performance Monitoring',
+                          '1 Active Ad Campaign',
+                          'Business Growth Consultation',
+                        ].map((item) => (
+                          <li key={item} className="flex gap-2">
+                            <CheckCircle className="mt-0.5 h-4 w-4 flex-shrink-0 text-teal-600" />
+                            <span>{item}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+
+                    <div className="space-y-5">
+                      <div>
+                        <p className="mb-3 text-sm font-bold text-slate-900">Client provides</p>
+                        <ul className="space-y-2 text-sm text-slate-700">
+                          {[
+                            'Business photos & videos',
+                            'Offer details / services information',
+                            'Logo & business details',
+                            'WhatsApp number',
+                          ].map((item) => (
+                            <li key={item}>- {item}</li>
+                          ))}
+                        </ul>
+                      </div>
+
+                      <div className="rounded-lg bg-white p-4 text-sm shadow-sm">
+                        <p className="font-bold text-slate-900">Package breakdown</p>
+                        <div className="mt-3 space-y-2 text-slate-700">
+                          <div className="flex justify-between">
+                            <span>Service & Management Fee</span>
+                            <span className="font-semibold">{'\u20b9'}3,000</span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span>Facebook/Instagram Ad Budget</span>
+                            <span className="font-semibold">{'\u20b9'}3,000</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="mt-5 rounded-lg border border-teal-200 bg-white p-4 text-sm leading-relaxed text-slate-700">
+                    The advertising budget is used directly for running ads on Facebook & Instagram platforms. A2 POWER handles setup, targeting, optimization, and lead management.
+                  </div>
+
+                  <div className="mt-5 grid gap-4 md:grid-cols-2">
+                    <div className="rounded-lg bg-white p-4 text-sm shadow-sm">
+                      <p className="mb-2 font-bold text-slate-900">Best for</p>
+                      <p className="leading-relaxed text-slate-700">
+                        Gyms, coaching centers, salons, restaurants, local shops, clinics, electrical & lighting stores, and service businesses.
+                      </p>
+                    </div>
+                    <div className="rounded-lg bg-white p-4 text-sm shadow-sm">
+                      <p className="mb-2 font-bold text-slate-900">Goal</p>
+                      <p className="leading-relaxed text-slate-700">
+                        Generate WhatsApp inquiries, calls, local leads, customer engagement, and brand visibility.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="mt-5 flex flex-col gap-3 sm:flex-row">
+                    <button
+                      type="button"
+                      onClick={handleContinue}
+                      className="inline-flex flex-1 items-center justify-center rounded-lg bg-gradient-to-r from-teal-600 to-blue-600 px-5 py-3 font-bold text-white transition hover:shadow-lg"
+                    >
+                      Book This Package
+                    </button>
+                    <a
+                      href="https://wa.me/918264737529?text=Hi%20A2%20POWER%2C%20I%20want%20the%20Local%20Business%20Growth%20Package."
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex flex-1 items-center justify-center gap-2 rounded-lg border-2 border-teal-600 px-5 py-3 font-bold text-teal-700 transition hover:bg-teal-50"
+                    >
+                      Get Leads Now
+                      <MessageCircle size={18} />
+                    </a>
+                  </div>
+                </motion.div>
+              )}
             </div>
 
             {/* Manual Payment Toggle */}
+            {selectedPackage !== GROWTH_PACKAGE_KEY && (
             <div className="bg-white rounded-lg shadow-lg p-8 mb-8">
               <label className="flex items-center p-4 border-2 border-gray-200 rounded-lg cursor-pointer hover:border-teal-300 transition">
                 <input
@@ -214,9 +356,10 @@ export default function PricingPage() {
                 </motion.div>
               )}
             </div>
+            )}
 
             {/* Options */}
-            {!manualPayment && (
+            {!manualPayment && selectedPackage !== GROWTH_PACKAGE_KEY && (
               <div className="bg-white rounded-lg shadow-lg p-8">
                 <h2 className="text-2xl font-bold mb-6">Options</h2>
 
@@ -325,12 +468,15 @@ export default function PricingPage() {
                 <div className="flex justify-between">
                   <span className="text-gray-700 font-semibold">Total</span>
                   <span className="text-2xl font-bold text-teal-600">
-                    ₹{pricing.total.toLocaleString('en-IN')}
+                    {'\u20b9'}{pricing.total.toLocaleString('en-IN')}
+                    {selectedPackage === GROWTH_PACKAGE_KEY && (
+                      <span className="text-sm text-gray-600"> / Month</span>
+                    )}
                   </span>
                 </div>
               </div>
 
-              {!manualPayment && (
+              {!manualPayment && selectedPackage !== GROWTH_PACKAGE_KEY && (
                 <div className="bg-white rounded-lg p-4 mb-6">
                   <div className="flex justify-between text-sm mb-2">
                     <span className="text-gray-600">Advance (40%)</span>
@@ -353,8 +499,22 @@ export default function PricingPage() {
                 onClick={handleContinue}
                 className="w-full bg-gradient-to-r from-teal-600 to-blue-600 text-white font-bold py-3 px-4 rounded-lg hover:shadow-lg transition"
               >
-                Continue to Project Details
+                {selectedPackage === GROWTH_PACKAGE_KEY
+                  ? 'Start Growing'
+                  : 'Continue to Project Details'}
               </motion.button>
+
+              {selectedPackage === GROWTH_PACKAGE_KEY && (
+                <a
+                  href="https://wa.me/918264737529?text=Hi%20A2%20POWER%2C%20I%20want%20to%20start%20digital%20marketing%20for%20my%20local%20business."
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-lg border-2 border-teal-600 px-4 py-3 font-bold text-teal-700 transition hover:bg-teal-50"
+                >
+                  Chat on WhatsApp
+                  <MessageCircle size={18} />
+                </a>
+              )}
 
               <div className="mt-4 text-xs text-gray-600 text-center">
                 ✓ Secure payment with Razorpay
@@ -377,7 +537,7 @@ export default function PricingPage() {
                   Which Package Should I Choose?
                 </h2>
                 <p className="text-sm text-gray-600">
-                  Compare all 4 options and select the right website type.
+                  Compare all options and select the right website or growth plan.
                 </p>
               </div>
               <button
@@ -409,6 +569,9 @@ export default function PricingPage() {
                     </div>
                     <span className="whitespace-nowrap text-lg font-bold text-teal-700">
                       {'\u20b9'}{PACKAGE_PRICES[key].toLocaleString('en-IN')}
+                      {key === GROWTH_PACKAGE_KEY && (
+                        <span className="text-xs text-gray-600"> / Month</span>
+                      )}
                     </span>
                   </div>
                   <p className="text-sm leading-relaxed text-gray-700">

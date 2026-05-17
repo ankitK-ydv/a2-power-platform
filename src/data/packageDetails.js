@@ -59,6 +59,24 @@ export const PACKAGE_DETAILS = {
     bestChoice:
       'Choose this when the website is a core business system, not just pages.',
   },
+  growth: {
+    name: 'A2 POWER - Local Business Growth Package',
+    shortDescription:
+      'Monthly Facebook & Instagram ads management with WhatsApp lead generation.',
+    description:
+      'Perfect for local businesses that want more customers, WhatsApp inquiries, calls, and online visibility through Facebook and Instagram advertising. Includes campaign setup, local targeting, WhatsApp integration, optimization, monitoring, and business growth consultation.',
+    idealFor: [
+      'Gyms',
+      'Coaching centers',
+      'Salons',
+      'Restaurants',
+      'Local shops',
+      'Clinics',
+      'Electrical & lighting stores',
+      'Service businesses',
+    ],
+    bestChoice: 'Best for local businesses that want monthly leads and visibility.',
+  },
 };
 
 export function getPackageName(packageType) {

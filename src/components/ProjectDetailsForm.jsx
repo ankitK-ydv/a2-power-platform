@@ -100,10 +100,13 @@ export default function ProjectDetailsForm() {
               {getPackageName(selection.packageType)}
             </h2>
             <p className="text-gray-600 mt-2">
-              {selection.pages} page{selection.pages !== 1 ? 's' : ''} •{' '}
-              {selection.addons?.length > 0
-                ? selection.addons.join(', ')
-                : 'No add-ons'}
+              {selection.packageType === 'growth'
+                ? 'Monthly ads, WhatsApp lead generation, and local customer targeting'
+                : `${selection.pages} page${selection.pages !== 1 ? 's' : ''} - ${
+                    selection.addons?.length > 0
+                      ? selection.addons.join(', ')
+                      : 'No add-ons'
+                  }`}
             </p>
           </div>
 

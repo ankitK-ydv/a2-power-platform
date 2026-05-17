@@ -8,7 +8,8 @@ const packagePrices = {
   landing: 3999,
   wordpress: 7999,
   coding: 11999,
-  custom: 29999
+  custom: 29999,
+  growth: 6000
 };
 
 const includedPages = 4;
@@ -50,6 +51,16 @@ function calculateExpectedPrice({ packageType, pages, addons = [], extraWorkAmou
   const safePages = Math.max(toWholeNumber(pages, 1), 1);
   const safeExtraWorkAmount = Math.max(toWholeNumber(extraWorkAmount), 0);
   const safeAddons = Array.isArray(addons) ? addons.filter((addon) => addonPrices[addon]) : [];
+  if (packageType === 'growth') {
+    return {
+      packageType,
+      pages: 1,
+      addons: [],
+      extraWorkAmount: 0,
+      totalPrice: packagePrices.growth
+    };
+  }
+
   const included = packageType === 'landing' ? landingIncludedPages : includedPages;
   const extraPages = Math.max(safePages - included, 0);
   const addonsPrice = safeAddons.reduce((sum, addon) => sum + addonPrices[addon], 0);
@@ -130,9 +141,10 @@ exports.createOrder = async (req, res) => {
     }
 
     const isManualPayment = expected.packageType === 'manual';
+    const isGrowthPackage = expected.packageType === 'growth';
     const advanceAmount = Math.round(expected.totalPrice * 0.4);
     const remainingAmount = expected.totalPrice - advanceAmount;
-    const payableAmount = !isManualPayment && payType === 'advance' ? advanceAmount : expected.totalPrice;
+    const payableAmount = !isManualPayment && !isGrowthPackage && payType === 'advance' ? advanceAmount : expected.totalPrice;
     const amountToCharge = payableAmount * 100; // in paise
 
     // create razorpay order
@@ -161,9 +173,9 @@ exports.createOrder = async (req, res) => {
         extraWorkAmount: expected.extraWorkAmount,
         totalPrice: expected.totalPrice,
         paidAmount: 0,
-        advancePaid: !isManualPayment && payType === 'advance' ? advanceAmount : 0,
-        remainingAmount: !isManualPayment && payType === 'advance' ? remainingAmount : 0,
-        paymentType: resolvedPaymentTypeLabel(payType, isManualPayment),
+        advancePaid: !isManualPayment && !isGrowthPackage && payType === 'advance' ? advanceAmount : 0,
+        remainingAmount: !isManualPayment && !isGrowthPackage && payType === 'advance' ? remainingAmount : 0,
+        paymentType: resolvedPaymentTypeLabel(payType, isManualPayment || isGrowthPackage),
         paymentStatus: 'Pending'
       });
       await client.save();
