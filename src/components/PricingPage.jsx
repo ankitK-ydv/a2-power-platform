@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowLeft, CheckCircle, Info, MessageCircle, X } from 'lucide-react';
 import { PACKAGE_DETAILS } from '../data/packageDetails';
+import PromoCodeSection from './PromoCodeSection';
 
 const PACKAGE_PRICES = {
   landing: 3999,
@@ -17,6 +18,7 @@ const PACKAGE_PRICES = {
 
 const GROWTH_PACKAGE_KEY = 'growth';
 const STANDALONE_SERVICE_KEYS = ['growth', 'seo', 'whatsapp', 'hosting'];
+const WEBSITE_PACKAGE_KEYS = ['landing', 'wordpress', 'coding', 'custom', 'growth'];
 
 const ADDON_PRICES = {
   SEO: 3000,
@@ -33,18 +35,41 @@ export default function PricingPage() {
   const [pages, setPages] = useState(4);
   const [selectedAddons, setSelectedAddons] = useState([]);
   const [extraWorkAmount, setExtraWorkAmount] = useState(0);
+  const [appliedPromo, setAppliedPromo] = useState(null);
   const [showPackageGuide, setShowPackageGuide] = useState(false);
   const isStandaloneService = STANDALONE_SERVICE_KEYS.includes(selectedPackage);
+
+  const getPromoDiscount = (promo, totalBeforeDiscount) => {
+    if (!promo) return 0;
+
+    if (promo.type === 'fixed' && WEBSITE_PACKAGE_KEYS.includes(selectedPackage)) {
+      return Math.min(promo.amount, totalBeforeDiscount);
+    }
+
+    if (promo.type === 'hosting') {
+      const hasHostingAddon = selectedAddons.includes('Hosting + Domain');
+      const isHostingPackage = selectedPackage === 'hosting';
+      if (hasHostingAddon || isHostingPackage) {
+        return Math.min(promo.amount, totalBeforeDiscount);
+      }
+    }
+
+    return 0;
+  };
 
   const calculatePrice = () => {
     const basePrice = PACKAGE_PRICES[selectedPackage] || PACKAGE_PRICES.wordpress;
     if (isStandaloneService) {
+      const promoDiscount = getPromoDiscount(appliedPromo, basePrice);
+      const total = Math.max(basePrice - promoDiscount, 0);
       return {
         extraWorkTotal: 0,
         addonsTotal: 0,
         pagesExtra: 0,
-        total: basePrice,
-        advance: basePrice,
+        originalTotal: basePrice,
+        promoDiscount,
+        total,
+        advance: total,
         remaining: 0,
       };
     }
@@ -58,7 +83,9 @@ export default function PricingPage() {
       return sum + (ADDON_PRICES[addon] || 0);
     }, 0);
 
-    const total = basePrice + pagesExtra + addonsTotal + extraWorkAmount;
+    const originalTotal = basePrice + pagesExtra + addonsTotal + extraWorkAmount;
+    const promoDiscount = getPromoDiscount(appliedPromo, originalTotal);
+    const total = Math.max(originalTotal - promoDiscount, 0);
     const advance = Math.round(total * 0.4);
     const remaining = total - advance;
 
@@ -66,6 +93,8 @@ export default function PricingPage() {
       extraWorkTotal: extraWorkAmount,
       addonsTotal,
       pagesExtra,
+      originalTotal,
+      promoDiscount,
       total,
       advance,
       remaining,
@@ -87,6 +116,16 @@ export default function PricingPage() {
       pages: isStandaloneService ? 1 : pages,
       addons: isStandaloneService ? [] : selectedAddons,
       extraWorkAmount: isStandaloneService ? 0 : extraWorkAmount,
+      promo: appliedPromo
+        ? {
+            code: appliedPromo.code,
+            offer: appliedPromo.description,
+            discountText: appliedPromo.discountText,
+            discountAmount: pricing.promoDiscount,
+          }
+        : null,
+      originalTotal: pricing.originalTotal,
+      promoDiscount: pricing.promoDiscount,
       total: pricing.total,
       advance: pricing.advance,
       remaining: pricing.remaining,
@@ -122,6 +161,13 @@ export default function PricingPage() {
           <ArrowLeft className="h-4 w-4" />
           Back to Home
         </Link>
+
+        <PromoCodeSection
+          appliedPromo={appliedPromo}
+          onApplyPromo={setAppliedPromo}
+          onClearPromo={() => setAppliedPromo(null)}
+        />
+
         <div className="grid lg:grid-cols-3 gap-8">
           {/* Left Panel - Options */}
           <motion.div
@@ -460,6 +506,42 @@ export default function PricingPage() {
                       ₹{pricing.extraWorkTotal.toLocaleString('en-IN')}
                     </span>
                   </div>
+                )}
+
+                {appliedPromo && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="rounded-lg border border-emerald-200 bg-white p-3"
+                  >
+                    <div className="flex items-start justify-between gap-4 text-sm">
+                      <div>
+                        <p className="font-bold text-emerald-700">
+                          Promo Applied: {appliedPromo.code}
+                        </p>
+                        <p className="mt-1 text-xs leading-relaxed text-gray-600">
+                          {appliedPromo.description}
+                        </p>
+                      </div>
+                      {pricing.promoDiscount > 0 && (
+                        <span className="whitespace-nowrap font-bold text-emerald-700">
+                          -{'\u20b9'}{pricing.promoDiscount.toLocaleString('en-IN')}
+                        </span>
+                      )}
+                    </div>
+                    {appliedPromo.type === 'hosting' &&
+                      pricing.promoDiscount === 0 &&
+                      selectedPackage !== 'hosting' && (
+                        <p className="mt-2 text-xs text-amber-700">
+                          Add Hosting + Domain to unlock this free setup offer.
+                        </p>
+                      )}
+                    {appliedPromo.type === 'benefit' && (
+                      <p className="mt-2 text-xs font-semibold text-emerald-700">
+                        Priority support is unlocked for this order.
+                      </p>
+                    )}
+                  </motion.div>
                 )}
 
                 <div className="flex justify-between">

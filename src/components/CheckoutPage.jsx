@@ -363,6 +363,23 @@ export default function CheckoutPage() {
                     {formatCurrency(state.total)}
                   </span>
                 </div>
+                {state.promo && (
+                  <div className="rounded-lg border border-emerald-200 bg-emerald-50 p-3">
+                    <div className="flex justify-between gap-4">
+                      <span className="text-emerald-700">
+                        Promo Applied ({state.promo.code})
+                      </span>
+                      <span className="font-semibold text-emerald-700">
+                        {state.promo.discountAmount > 0
+                          ? `-${formatCurrency(state.promo.discountAmount)}`
+                          : state.promo.discountText}
+                      </span>
+                    </div>
+                    <p className="mt-1 text-xs text-emerald-700">
+                      {state.promo.offer}
+                    </p>
+                  </div>
+                )}
                 <div className="flex justify-between text-base font-semibold">
                   <span>To Pay Now</span>
                   <span className="text-lg text-green-600">
